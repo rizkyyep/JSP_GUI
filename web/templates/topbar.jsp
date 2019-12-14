@@ -133,23 +133,23 @@
                         <div class="account-wrap">
                             <div class="account-item clearfix js-item-menu">
                                 <div class="image">
-                                    <img src="assets/images/rizky.jpg" alt="Rizky" />
+                                    <img src="assets/images/spidey.jpg" alt="Fajar" />
                                 </div>
                                 <div class="content">
-                                    <a class="js-acc-btn" href="#">Rizky</a>
+                                    <a class="js-acc-btn" href="#"></a>
                                 </div>
                                 <div class="account-dropdown js-dropdown">
                                     <div class="info clearfix">
                                         <div class="image">
                                             <a href="#">
-                                                <img src="assets/images/rizky.jpg" alt="Rizky" />
+                                                <img src="assets/images/spidey.jpg" alt="Fajar" />
                                             </a>
                                         </div>
                                         <div class="content">
                                             <h5 class="name">
-                                                <a href="#">Muhammad Nur Rizky Eka Putra</a>
+                                                <a href="#">Fajar Syairillah</a>
                                             </h5>
-                                            <span class="email">mnurrizky@gmail.com</span>
+                                            <span class="email">FajarSyairillah51@gmail.com</span>
                                         </div>
                                     </div>
                                     <div class="account-dropdown__body">

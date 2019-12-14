@@ -6,7 +6,11 @@
     </servlet>
     <servlet>
         <servlet-name>RegionServlet</servlet-name>
-        <servlet-class>controllers.RegionServlet</servlet-class>
+        <servlet-class>servlet.RegionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>JobServlet</servlet-name>
+        <servlet-class>servlet.JobServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>TestServlet</servlet-name>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>RegionServlet</servlet-name>
         <url-pattern>/regionServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>JobServlet</servlet-name>
+        <url-pattern>/jobServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

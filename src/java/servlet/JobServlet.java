@@ -1,10 +1,10 @@
-package controllers;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package servlet;
+
 import daos.GeneralDao;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,22 +15,22 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import models.Region;
+import models.Job;
 import tools.HibernateUtil;
 
 /**
  *
- * @author ASUS
+ * @author USER
  */
-public class RegionServlet extends HttpServlet {
+public class JobServlet extends HttpServlet {
 
     private GeneralDao dao;
 
-    public RegionServlet() {
+    public JobServlet() {
         this.dao = new GeneralDao(HibernateUtil.getSessionFactory());
     }
 
-    public RegionServlet(GeneralDao dao) {
+    public JobServlet(GeneralDao dao) {
         this.dao = dao;
     }
 
@@ -47,11 +47,16 @@ public class RegionServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-
-//            List<Region> regions = this.dao.select("Region");
-//            request.setAttribute("regions", regions);
-//            RequestDispatcher rd = request.getRequestDispatcher("listRegion.jsp");
-//            rd.forward(request, response);
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet JobServlet</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet JobServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -67,7 +72,8 @@ public class RegionServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Region> regions = this.dao.select("Region");
+
+        List<Job> jobs = this.dao.select("Job");
 
         String redirect = "";
         String action = request.getParameter("action");
@@ -119,65 +125,76 @@ public class RegionServlet extends HttpServlet {
 
     private void delete(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        dao.delete(new Region(id));
-        response.sendRedirect("regionServlet?action=list");
+        String id = request.getParameter("id");
+        dao.delete(new Job(id));
+        response.sendRedirect("jobServlet?action=list");
     }
 
     private void insert(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
-        String name = request.getParameter("nameRegion");
-        dao.save(new Region(max(), name));
-        response.sendRedirect("regionServlet?action=list");
+        String id = request.getParameter("idJob");
+        String title = request.getParameter("titleJob");
+        int min = Integer.parseInt(request.getParameter("minSalary"));
+        int max = Integer.parseInt(request.getParameter("maxSalary"));
+        dao.save(new Job(id, title, min, max));
+        response.sendRedirect("jobServlet?action=list");
     }
 
     private void update(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
-        String id = request.getParameter("idRegion");
-        String name = request.getParameter("nameRegion");
-        dao.save(new Region(Integer.parseInt(id), name));
-        response.sendRedirect("regionServlet?action=list");
+        String id = request.getParameter("idJob");
+        String title = request.getParameter("titleJob");
+        int min = Integer.parseInt(request.getParameter("minSalary"));
+        int max = Integer.parseInt(request.getParameter("maxSalary"));
+        dao.save(new Job(id, title, min, max));
+        response.sendRedirect("jobServlet?action=list");
     }
 
     private void showForm(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
         String id = request.getParameter("id");
 //        String name = request.getParameter("nameRegion");
-        Region region = (Region) this.dao.selectByField("Region", "regionId", id);
-        String regionId = region.getRegionId().toString();
-        String regionName = region.getRegionName();
-        request.setAttribute("regionId", regionId);
-        request.setAttribute("regionName", regionName);
-        RequestDispatcher rd = request.getRequestDispatcher("updateRegion.jsp");
+        Job job = (Job) this.dao.selectByField("Job", "jobId", id);
+        String jobId = job.getJobId();
+        String jobTitle = job.getJobTitle();
+        int minSalary = job.getMinSalary();
+        int maxSalary = job.getMaxSalary();
+        request.setAttribute("jobId", jobId);
+        request.setAttribute("jobTitle", jobTitle);
+        request.setAttribute("minSalary", minSalary);
+        request.setAttribute("maxSalary", maxSalary);
+        RequestDispatcher rd = request.getRequestDispatcher("updateJob.jsp");
         rd.forward(request, response);
     }
 
     private void list(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
-        List<Region> regions = this.dao.select("Region");
-        request.setAttribute("regions", regions);
-        RequestDispatcher rd = request.getRequestDispatcher("listRegion.jsp");
+        List<Job> jobs = this.dao.select("Job");
+        request.setAttribute("jobs", jobs);
+        RequestDispatcher rd = request.getRequestDispatcher("listJob.jsp");
         rd.forward(request, response);
     }
-    
-     public int max() {
-        if (dao.getNewId("Region", "regionId") == null) {
-            int id = 1;
-            return id;
-        } else {
 
-            String a = "" + dao.getNewId("Region", "regionId") + "";
-            int max = Integer.parseInt(a);
-            int newId = max + 1;
-
-            return newId;
-
-        }}
-        public List<Region> getAll(){
-     return this.dao.select("Region");
+//    public int max() {
+//        if (dao.getNewId("Region", "regionId") == null) {
+//            int id = 1;
+//            return id;
+//        } else {
+//
+//            String a = "" + dao.getNewId("Region", "regionId") + "";
+//            int max = Integer.parseInt(a);
+//            int newId = max + 1;
+//
+//            return newId;
+//
+//        }
+//    }
+    public List<Job> getAll() {
+        return this.dao.select("Job");
     }
 
     /**
+     * /**
      * Returns a short description of the servlet.
      *
      * @return a String containing servlet description

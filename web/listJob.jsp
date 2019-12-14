@@ -4,7 +4,7 @@
     Author     : ASUS
 --%>
 
-<%@page import="models.Region"%>
+<%@page import="models.Job"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -19,7 +19,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="overview-wrap">
-                            <h2 class="title-1">Region Data</h2>
+                            <h2 class="title-1">Job Data</h2>
                             <button data-toggle="modal" data-target="#additem" class="au-btn au-btn-icon au-btn--blue">
                                 <i class="zmdi zmdi-plus"></i>add item</button>
                         </div>
@@ -30,25 +30,29 @@
                         <!--<div class="table-responsive table--no-card m-b-30">-->
                         <table id="listItem" class="table table-borderless table-striped table-earning">
                             <!--<table id="myTable" class="table table-borderless table-striped table-earning">-->
-                        <% List<Region> regions = (ArrayList<Region>) request.getAttribute("regions"); %>
+                        <% List<Job> jobs = (ArrayList<Job>) request.getAttribute("jobs"); %>
                         <thead>
                             <tr>
-                                <th>Region ID</th>
-                                <th>Region Name</th>
+                                <th>Job ID</th>
+                                <th>Job Title</th>
+                                <th>Min Salary</th>
+                                <th>Max Salary</th>
                                 <th class="text-right">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <%for (Region region : regions) {%>
+                            <%for (Job job : jobs) {%>
                             <tr>
-                                <td><%=region.getRegionId()%></td>
-                                <td><%= region.getRegionName()%></td>
+                                <td><%=job.getJobId()%></td>
+                                <td><%= job.getJobTitle()%></td>
+                                <td><%=job.getMinSalary()%></td>
+                                <td><%= job.getMaxSalary()%></td>
                                 <td class="text-right">
-                                    <a href="regionServlet?action=edit&id=<%= region.getRegionId()%>" 
+                                    <a href="jobServlet?action=edit&id=<%=job.getJobId()%>" 
                                        data-toggle="tooltip" data-placement="top" 
                                        title="Edit"><i class="fas fa-edit fa-lg" style="color:#26a65b;"></i></a>
                                     &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a href="regionServlet?action=delete&id=<%=region.getRegionId()%> " 
+                                    <a href="jobServlet?action=delete&id=<%=job.getJobId()%> " 
                                        data-toggle="tooltip" data-placement="top" 
                                        title="Delete"><i class="fas fa-trash fa-lg"style="color:#f03434;"onclick="coba()"></i>
                                     </a>
@@ -63,9 +67,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="copyright">
-                        <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="https://colorlib.com">Color-lib</a>.</p>
-                        <h1>Halaman Utama!</h1>
-                        <a href="regionServlet?action=list">Region</a>
+                        <p>Copyright © 2018 Color-lib. All rights reserved. Template by <a href="https://colorlib.com">Color-lib</a>.</p>
+                        <h1>Halaman-Utama</h1>
+                        <a href="jobServlet?action=list">Job</a>
                     </div>
                 </div>
             </div>
@@ -79,25 +83,43 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="smallmodalLabel">Small Modal</h5>
+                <h5 class="fas fa-briefcase" id="smallmodalLabel"> Create New Job Data</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="regionServlet?action=insert" method="post" class="form-horizontal">
-                    <div class="row form-group">
-                        <div class="col col-md-3">
-                            <label for="hf-password" class=" form-control-label">Region Name</label>
-                        </div>
-                        <div class="col-12 col-md-9">
-                            <input type="text" id="nameRegion" name="nameRegion" placeholder="Enter Region Name..." class="form-control">
+                <form action="jobServlet?action=insert" method="post" class="form-horizontal">
+                    <div class="form-group row">
+                        <label for="idJob" class="col-sm-2 col-form-label">Job ID</label>
+                        <div class="col-sm-2 mb-1">
+                            <input type="text" class="form-control" id="idJob">
                         </div>
                     </div>
-                    <center>
-                        <input type="submit" name="submit" value="Save" class="btn btn-primary"/>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    </center>
+                    <div class="form-group row">
+                        <label for="titleJob" class="col-sm-2 col-form-label">Job Title</label>
+                        <div class="col col-md-5 mb-1">
+                            <input type="text" class="form-control" id="titleJob">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="minSalary" class="col-sm-2 col-form-label">Min Salary</label>
+                        <div class="col col-md-4 mb-1">
+                            <input type="text" class="form-control" id="minSalary">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="maxSalary" class="col-sm-2 col-form-label">Max Salary</label>
+                        <div class="col col-md-4 mb-1">
+                            <input type="text" class="form-control" id="maxSalary">
+                        </div>
+                    </div>
+                    <div class="m-b-10">
+                        <center>
+                            <input type="submit" name="submit" value="Save" class="btn btn-primary" onclick="success()"/>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button> 
+                        </center>
+                    </div>
                 </form>
             </div>
             <!--            <div class="modal-footer">
@@ -121,7 +143,14 @@
         );
 
     });
-
+    function success() {
+        swal({
+            icon: 'success',
+            title: 'Your data has been saved',
+            showConfirmButton: false,
+            timer: 1500
+        })
+    }
     function coba() {
         swal({
             title: 'Are you sure?',
@@ -134,7 +163,6 @@
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.value) {
-                
                 swal(
                         'Deleted!',
                         'Your file has been deleted.',

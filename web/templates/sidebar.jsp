@@ -137,7 +137,11 @@
                     </li>
                     <li>
                         <a href="regionServlet?action=list">
-                            <i class="fas fa-chart-bar"></i>Region Data</a>
+                           <i class="fas fa-globe"></i>Region Data</a>
+                    </li>
+                     <li>
+                        <a href="jobServlet?action=list">
+                           <i class="fas fa-briefcase"></i>Job Data</a>
                     </li>
                     <li class="has-sub">
                         <a class="js-arrow" href="#">
