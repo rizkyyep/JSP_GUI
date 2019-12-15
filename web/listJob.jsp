@@ -50,10 +50,10 @@
                                 <td class="text-right">
                                     <a href="jobServlet?action=edit&id=<%=job.getJobId()%>" 
                                        data-toggle="tooltip" data-placement="top" 
-                                       title="Edit"><i class="fas fa-edit fa-lg" style="color:#26a65b;"></i>
+                                       title="Edit"><i class="fas fa-edit fa-lg" style="color:#26a65b;"></i>                                     
                                     </a>
                                     &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a href="jobServlet?action=delete&id=<%=job.getJobId()%> " 
+                                    <a href="jobServlet?action=delete&id=<%=job.getJobId()%>" 
                                        data-toggle="tooltip" data-placement="top" 
                                        title="Delete"><i class="fas fa-trash fa-lg"style="color:#f03434;"onclick="coba()"></i>
                                     </a>
