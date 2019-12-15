@@ -28,10 +28,10 @@
                                 <form action="jobServlet?action=insert" method="post" class="form-vertical">
                                     <div class="row form-group">
                                         <div class="col-12 col-md-9">
-                                            <input type="text" id="idJob" name="idJob" placeholder="Enter Job Id..." class="form-control">
+                                            <input type="text" id="idJob" name="jobId" placeholder="Enter Job Id..." class="form-control">
                                         </div>
                                         <div class="col-12 col-md-9">
-                                            <input type="text" id="titleJob" name="titleJob" placeholder="Enter Job Title..." class="form-control">
+                                            <input type="text" id="titleJob" name="jobTitle" placeholder="Enter Job Title..." class="form-control">
                                         </div>
                                         <div class="col-12 col-md-9">
                                             <input type="text" id="minSalary" name="minSalary" placeholder="Enter Minimal Salary..." class="form-control">

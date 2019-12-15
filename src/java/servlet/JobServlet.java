@@ -132,21 +132,21 @@ public class JobServlet extends HttpServlet {
 
     private void insert(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
-        String id = request.getParameter("idJob");
-        String title = request.getParameter("titleJob");
-        int min = Integer.parseInt(request.getParameter("minSalary"));
-        int max = Integer.parseInt(request.getParameter("maxSalary"));
-        dao.save(new Job(id, title, min, max));
+        String jobId = request.getParameter("jobId");
+        String jobTitle = request.getParameter("jobTitle");
+        String minSalary = request.getParameter("minSalary");
+        String maxSalary = request.getParameter("maxSalary");
+        dao.save(new Job(jobId, jobTitle, Integer.parseInt(minSalary), Integer.parseInt(maxSalary)));
         response.sendRedirect("jobServlet?action=list");
     }
 
     private void update(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
-        String id = request.getParameter("idJob");
-        String title = request.getParameter("titleJob");
-        int min = Integer.parseInt(request.getParameter("minSalary"));
-        int max = Integer.parseInt(request.getParameter("maxSalary"));
-        dao.save(new Job(id, title, min, max));
+        String jobId = request.getParameter("jobId");
+        String jobTitle = request.getParameter("jobTitle");
+        String minSalary = request.getParameter("minSalary");
+        String maxSalary = request.getParameter("maxSalary");
+        dao.save(new Job(jobId, jobTitle, Integer.parseInt(minSalary), Integer.parseInt(maxSalary)));
         response.sendRedirect("jobServlet?action=list");
     }
 

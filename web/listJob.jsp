@@ -91,13 +91,13 @@
             <div class="modal-body">
                 <form action="jobServlet?action=insert" method="post" class="form-horizontal">
                     <div class="form-group row">
-                        <label for="idJob" class="col-sm-2 col-form-label">Job ID</label>
+                        <label for="jobId" class="col-sm-2 col-form-label">Job ID</label>
                         <div class="col-sm-2 mb-1">
                             <input type="text" class="form-control" id="idJob">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="titleJob" class="col-sm-2 col-form-label">Job Title</label>
+                        <label for="jobTitle" class="col-sm-2 col-form-label">Job Title</label>
                         <div class="col col-md-5 mb-1">
                             <input type="text" class="form-control" id="titleJob">
                         </div>
@@ -105,13 +105,13 @@
                     <div class="form-group row">
                         <label for="minSalary" class="col-sm-2 col-form-label">Min Salary</label>
                         <div class="col col-md-4 mb-1">
-                            <input type="text" class="form-control" id="minSalary">
+                            <input type="number" class="form-control" id="minSalary">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="maxSalary" class="col-sm-2 col-form-label">Max Salary</label>
                         <div class="col col-md-4 mb-1">
-                            <input type="text" class="form-control" id="maxSalary">
+                            <input type="number" class="form-control" id="maxSalary">
                         </div>
                     </div>
                     <div class="m-b-10">
@@ -145,10 +145,10 @@
     });
     function success() {
         swal({
-            icon: 'success',
             title: 'Your data has been saved',
+            type: 'sucess',
             showConfirmButton: false,
-            timer: 1500
+            timer: 2500
         })
     }
     function coba() {
@@ -157,7 +157,7 @@
             text: "You won't be able to revert this!",
             type: 'warning',
             showCancelButton: true,
-            timer: 80000,
+            timer: 8000,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, delete it!'
