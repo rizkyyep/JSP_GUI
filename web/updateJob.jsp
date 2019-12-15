@@ -28,7 +28,7 @@
                                 <form action="jobServlet?action=update" method="post" class="form-horizontal">
                                     <div class="row form-group">
                                         <div class="col col-md-3">
-                                            <label for="jobid" class=" form-control-label">Job Id</label>
+                                            <label for="hf-email" class=" form-control-label">Job Id</label>
                                         </div>
                                         <div class="col-12 col-md-9">
                                             <input type="text" value="<%= request.getAttribute("jobId")%>" id="jobId" name="jobId" placeholder="Enter Id..." class="form-control" readonly>
@@ -36,7 +36,7 @@
                                 </div>
                                 <div class="row form-group">
                                     <div class="col col-md-3">
-                                        <label for="jobTitle" class=" form-control-label">Job Title</label>
+                                        <label for="hf-password" class=" form-control-label">Job Title</label>
                                     </div>
                                     <div class="col-12 col-md-9">
                                         <input type="text" id="titleJob" value="<%= request.getAttribute("jobTitle")%>" name="jobTitle" placeholder="Enter Title..." class="form-control" required>
@@ -44,7 +44,7 @@
                                 </div>
                                 <div class="row form-group">
                                     <div class="col col-md-3">
-                                        <label for="minSalary" class=" form-control-label">Min Salary</label>
+                                        <label for="hf-password" class=" form-control-label">Min Salary</label>
                                     </div>
                                     <div class="col-12 col-md-9">
                                         <input type="number" id="minSalary" value="<%= request.getAttribute("minSalary")%>" name="minSalary" placeholder="Enter Min Salary..." class="form-control" required>
@@ -52,7 +52,7 @@
                                 </div>
                                 <div class="row form-group">
                                     <div class="col col-md-3">
-                                        <label for="maxSalary" class=" form-control-label">Max Salary</label>
+                                        <label for="hf-password" class=" form-control-label">Max Salary</label>
                                     </div>
                                     <div class="col-12 col-md-9">
                                         <input type="number" id="maxSalary" value="<%= request.getAttribute("maxSalary")%>" name="maxSalary" placeholder="Enter Max Salary..." class="form-control" required>
@@ -65,20 +65,20 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="copyright">
-                            <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
-                            <h1>Halaman Utama!</h1>
-                            <a href="jobServlet?action=list"></a>
+                    <div class="col-12">
+                        <div class="copyright">                      
+                            <p>Copyright © 2018 Color-lib. All rights reserved. Template by <a href="https://colorlib.com">Color-lib</a>.</p>
+                            <h1>Halaman-Utama</h1>
+                            <a href="jobServlet?action=list">Job</a>
+                            </center>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
     <!--     END MAIN CONTENT-->
 
     <!-- modal update item -->

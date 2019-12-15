@@ -152,17 +152,16 @@ public class JobServlet extends HttpServlet {
 
     private void showForm(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
-        String id = request.getParameter("jobId");
-//        String name = request.getParameter("nameRegion");
-        Job job = (Job) this.dao.selectByField("Job", "jobId", id);
-        String jobId = job.getJobId();
-        String jobTitle = job.getJobTitle();
-        int minSalary = job.getMinSalary();
-        int maxSalary = job.getMaxSalary();
-        request.setAttribute("jobId", jobId);
-        request.setAttribute("jobTitle", jobTitle);
-        request.setAttribute("minSalary", minSalary);
-        request.setAttribute("maxSalary", maxSalary);
+        String jobId = request.getParameter("jobId");
+        Job job = (Job) this.dao.selectByField("Job", "jobId", jobId);
+        String id = job.getJobId();
+        String title = job.getJobTitle();
+        String min = job.getMinSalary().toString();
+        String max = job.getMaxSalary().toString();
+        request.setAttribute("jobId", id);
+        request.setAttribute("jobTitle", title);
+        request.setAttribute("minSalary", min);
+        request.setAttribute("maxSalary", max);
         RequestDispatcher rd = request.getRequestDispatcher("updateJob.jsp");
         rd.forward(request, response);
     }

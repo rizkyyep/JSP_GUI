@@ -48,7 +48,7 @@
                                 <td><%=job.getMinSalary()%></td>
                                 <td><%= job.getMaxSalary()%></td>
                                 <td class="text-right">
-                                    <a href="jobServlet?action=edit&id=<%=job.getJobId()%>" 
+                                    <a href="jobServlet?action=edit&jobId=<%=job.getJobId()%>" 
                                        data-toggle="tooltip" data-placement="top" 
                                        title="Edit"><i class="fas fa-edit fa-lg" style="color:#26a65b;"></i>                                     
                                     </a>
@@ -66,7 +66,7 @@
             </div>
 
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-12 col-md-12">
                     <div class="copyright">
                         <p>Copyright © 2018 Color-lib. All rights reserved. Template by <a href="https://colorlib.com">Color-lib</a>.</p>
                         <h1>Halaman-Utama</h1>
