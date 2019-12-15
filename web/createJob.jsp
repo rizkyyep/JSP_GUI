@@ -14,7 +14,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="overview-wrap">
-                            <h2 class="title-1">Add Region Data</h2>
+                            <h2 class="title-1">Add Job Data</h2>
                         </div>
                     </div>
                 </div>
@@ -22,16 +22,16 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong>Region</strong> Form
+                                <strong>Job</strong> Form
                             </div>
                             <div class="card-body card-block">
                                 <form action="jobServlet?action=insert" method="post" class="form-vertical">
                                     <div class="row form-group">
                                         <div class="col-12 col-md-9">
-                                            <input type="text" id="idJob" name="jobId" placeholder="Enter Job Id..." class="form-control">
+                                            <input type="text" id="jobId" name="jobId" placeholder="Enter Job Id..." class="form-control">
                                         </div>
                                         <div class="col-12 col-md-9">
-                                            <input type="text" id="titleJob" name="jobTitle" placeholder="Enter Job Title..." class="form-control">
+                                            <input type="text" id="jobTitle" name="jobTitle" placeholder="Enter Job Title..." class="form-control">
                                         </div>
                                         <div class="col-12 col-md-9">
                                             <input type="text" id="minSalary" name="minSalary" placeholder="Enter Minimal Salary..." class="form-control">

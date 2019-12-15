@@ -125,8 +125,8 @@ public class JobServlet extends HttpServlet {
 
     private void delete(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
-        String id = request.getParameter("id");
-        dao.delete(new Job(id));
+        String jobId = request.getParameter("jobId");
+        dao.delete(new Job(jobId));
         response.sendRedirect("jobServlet?action=list");
     }
 
@@ -152,7 +152,7 @@ public class JobServlet extends HttpServlet {
 
     private void showForm(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
-        String id = request.getParameter("id");
+        String id = request.getParameter("jobId");
 //        String name = request.getParameter("nameRegion");
         Job job = (Job) this.dao.selectByField("Job", "jobId", id);
         String jobId = job.getJobId();

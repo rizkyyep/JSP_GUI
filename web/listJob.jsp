@@ -1,6 +1,6 @@
 <%-- 
     Document   : testJSP
-    Created on : 11 Des 19, 8:43:05
+    Ceeated on : 11 Des 19, 8:43:05
     Author     : ASUS
 --%>
 
@@ -48,11 +48,11 @@
                                 <td><%=job.getMinSalary()%></td>
                                 <td><%= job.getMaxSalary()%></td>
                                 <td class="text-right">
-                                    <a href="jobServlet?action=edit&id=<%=job.getJobId()%>" 
+                                    <a href="jobServlet?action=edit&jobId=<%=job.getJobId()%>" 
                                        data-toggle="tooltip" data-placement="top" 
                                        title="Edit"><i class="fas fa-edit fa-lg" style="color:#26a65b;"></i></a>
                                     &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a href="jobServlet?action=delete&id=<%=job.getJobId()%> " 
+                                    <a href="jobServlet?action=delete&jobId=<%=job.getJobId()%> " 
                                        data-toggle="tooltip" data-placement="top" 
                                        title="Delete"><i class="fas fa-trash fa-lg"style="color:#f03434;"onclick="coba()"></i>
                                     </a>

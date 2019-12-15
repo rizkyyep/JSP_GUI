@@ -31,7 +31,7 @@
                                             <label for="hf-email" class=" form-control-label">Job Id</label>
                                         </div>
                                         <div class="col-12 col-md-9">
-                                            <input type="text" value="<%= request.getAttribute("jobId")%>" id="idRegion" name="jobId" placeholder="Enter Id..." class="form-control" readonly>
+                                            <input type="text" value="<%= request.getAttribute("jobId")%>" id="jobId" name="jobId" placeholder="Enter Id..." class="form-control" readonly>
                                     </div>
                                 </div>
                                 <div class="row form-group">
