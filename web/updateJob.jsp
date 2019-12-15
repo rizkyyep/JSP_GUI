@@ -24,41 +24,68 @@
                             <div class="card-header">
                                 <strong>Job</strong> Form
                             </div>
-                            <div class="card-body card-block">
-                                <form action="jobServlet?action=update" method="post" class="form-horizontal">
-                                    <div class="row form-group">
-                                        <div class="col col-md-3">
-                                            <label for="hf-email" class=" form-control-label">Job Id</label>
-                                        </div>
-                                        <div class="col-12 col-md-9">
-                                            <input type="text" value="<%= request.getAttribute("jobId")%>" id="jobId" name="jobId" placeholder="Enter Id..." class="form-control" readonly>
-                                    </div>
-                                </div>
+                            <!--                            <div class="card-body card-block">
+                                                            <form action="jobServlet?action=update" method="post" class="form-horizontal">
+                                                                <div class="row form-group">
+                                                                    <div class="col col-md-3">
+                                                                        <label for="hf-email" class=" form-control-label">Job Id</label>
+                                                                    </div>
+                                                                    <div class="col-12 col-md-9">
+                                                                        <input type="text" value="<%= request.getAttribute("jobId")%>" id="jobId" name="jobId" placeholder="Enter Id..." class="form-control" readonly>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row form-group">
+                                                                <div class="col col-md-3">
+                                                                    <label for="hf-password" class=" form-control-label">Job Title</label>
+                                                                </div>
+                                                                <div class="col-12 col-md-9">
+                                                                    <input type="text" id="titleJob" value="<%= request.getAttribute("jobTitle")%>" name="jobTitle" placeholder="Enter Title..." class="form-control" required>
+                                                                </div>
+                                                            </div>
+                                                                 <div class="row form-group">
+                                                                <div class="col col-md-3">
+                                                                    <label for="hf-password" class=" form-control-label">Min Salary</label>
+                                                                </div>
+                                                                <div class="col-12 col-md-9">
+                                                                    <input type="text" id="minSalary" value="<%= request.getAttribute("minSalary")%>" name="minSalary" placeholder="Enter Min Salary..." class="form-control" required>
+                                                                </div>
+                                                            </div>
+                                                                 <div class="row form-group">
+                                                                <div class="col col-md-3">
+                                                                    <label for="hf-password" class=" form-control-label">Max Salary</label>
+                                                                </div>
+                                                                <div class="col-12 col-md-9">
+                                                                    <input type="text" id="maxSalary" value="<%= request.getAttribute("maxSalary")%>" name="maxSalary" placeholder="Enter Max Salary..." class="form-control" required>
+                                                                </div>
+                                                            </div>
+                                                            <input type="submit" name="submit" value="Save" class="btn btn-primary btn-sm"/>
+                                                        </form>-->
+                        <div class="modal-body">
+                            <form action="jobServlet?action=insert" method="post" class="form-horizontal">
                                 <div class="row form-group">
-                                    <div class="col col-md-3">
-                                        <label for="hf-password" class=" form-control-label">Job Title</label>
+                                    <div class="input-group col-12 col-md-5 m-b-10">
+                                        <span class="input-group-addon"><i class="fas fa-id-card"></i></span>
+                                        <input id="jobId" type="text" class="form-control" name="jobId">
                                     </div>
-                                    <div class="col-12 col-md-9">
-                                        <input type="text" id="titleJob" value="<%= request.getAttribute("jobTitle")%>" name="jobTitle" placeholder="Enter Title..." class="form-control" required>
+                                    <div class="input-group col-12 col-md-8 m-b-10">
+                                        <span class="input-group-addon"><i class="fas fa-briefcase"></i></span>
+                                        <input id="jobTitle" type="text" class="form-control" name="jobTitle">
                                     </div>
-                                </div>
-                                     <div class="row form-group">
-                                    <div class="col col-md-3">
-                                        <label for="hf-password" class=" form-control-label">Min Salary</label>
+                                    <div class="input-group col-12 col-md-8 m-b-10">
+                                        <span class="input-group-addon"><i class="fas fa-dollar-sign"></i></span>
+                                        <input id="minSalary" type="number" class="form-control" name="minSalary">
                                     </div>
-                                    <div class="col-12 col-md-9">
-                                        <input type="text" id="minSalary" value="<%= request.getAttribute("minSalary")%>" name="minSalary" placeholder="Enter Min Salary..." class="form-control" required>
-                                    </div>
-                                </div>
-                                     <div class="row form-group">
-                                    <div class="col col-md-3">
-                                        <label for="hf-password" class=" form-control-label">Max Salary</label>
-                                    </div>
-                                    <div class="col-12 col-md-9">
-                                        <input type="text" id="maxSalary" value="<%= request.getAttribute("maxSalary")%>" name="maxSalary" placeholder="Enter Max Salary..." class="form-control" required>
+                                    <div class="input-group col-12 col-md-8 m-b-10">
+                                        <span class="input-group-addon"><i class="fas fa-dollar-sign"></i></span>
+                                        <input id="maxSalary" type="number" class="form-control" name="maxSalary">
                                     </div>
                                 </div>
-                                <input type="submit" name="submit" value="Save" class="btn btn-primary btn-sm"/>
+                                <div class="m-b-10">
+                                    <center>
+                                        <input type="submit" name="submit" value="Save" class="btn btn-primary" onclick="success()"/>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button> 
+                                    </center>
+                                </div>
                             </form>
                         </div>
                         <div class="card-footer">

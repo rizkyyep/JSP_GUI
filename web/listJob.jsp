@@ -48,11 +48,12 @@
                                 <td><%=job.getMinSalary()%></td>
                                 <td><%= job.getMaxSalary()%></td>
                                 <td class="text-right">
-                                    <a href="jobServlet?action=edit&jobId=<%=job.getJobId()%>" 
+                                    <a href="jobServlet?action=edit&id=<%=job.getJobId()%>" 
                                        data-toggle="tooltip" data-placement="top" 
-                                       title="Edit"><i class="fas fa-edit fa-lg" style="color:#26a65b;"></i></a>
+                                       title="Edit"><i class="fas fa-edit fa-lg" style="color:#26a65b;"></i>
+                                    </a>
                                     &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a href="jobServlet?action=delete&jobId=<%=job.getJobId()%> " 
+                                    <a href="jobServlet?action=delete&id=<%=job.getJobId()%> " 
                                        data-toggle="tooltip" data-placement="top" 
                                        title="Delete"><i class="fas fa-trash fa-lg"style="color:#f03434;"onclick="coba()"></i>
                                     </a>
@@ -90,29 +91,35 @@
             </div>
             <div class="modal-body">
                 <form action="jobServlet?action=insert" method="post" class="form-horizontal">
-                    <div class="form-group row">
-                        <label for="jobId" class="col-sm-2 col-form-label">Job ID</label>
-                        <div class="col-sm-2 mb-1">
-                            <input type="text" class="form-control" id="idJob">
+                    <div class="row form-group">
+                        <div class="input-group col-12 col-md-5 m-b-10">
+                            <span class="input-group-addon"><i class="fas fa-id-card"></i></span>
+                            <input id="jobId" type="text" class="form-control" name="jobId" placeholder="Id Job">
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="jobTitle" class="col-sm-2 col-form-label">Job Title</label>
-                        <div class="col col-md-5 mb-1">
-                            <input type="text" class="form-control" id="titleJob">
+                        <div class="input-group col-12 col-md-8 m-b-10">
+                            <span class="input-group-addon"><i class="fas fa-briefcase"></i></span>
+                            <input id="jobTitle" type="text" class="form-control" name="jobTitle" placeholder="Title Job">
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="minSalary" class="col-sm-2 col-form-label">Min Salary</label>
-                        <div class="col col-md-4 mb-1">
-                            <input type="number" class="form-control" id="minSalary">
+                        <div class="input-group col-12 col-md-8 m-b-10">
+                            <span class="input-group-addon"><i class="fas fa-dollar-sign"></i></span>
+                            <input id="minSalary" type="number" class="form-control" name="minSalary" placeholder="Minimal Salary">
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="maxSalary" class="col-sm-2 col-form-label">Max Salary</label>
-                        <div class="col col-md-4 mb-1">
-                            <input type="number" class="form-control" id="maxSalary">
+                        <div class="input-group col-12 col-md-8 m-b-10">
+                            <span class="input-group-addon"><i class="fas fa-dollar-sign"></i></span>
+                            <input id="maxSalary" type="number" class="form-control" name="maxSalary" placeholder="Maximal Salary">
                         </div>
+                        <!--                        <div class="col-12 col-md-9 m-b-10">
+                                                    <input type="text" id="jobId" name="jobId" class="form-control">
+                                                </div>
+                                                <div class="col-12 col-md-9 m-b-10">
+                                                    <input type="text" id="jobTitle" name="jobTitle" class="form-control">
+                                                </div>
+                                                <div class="col-12 col-md-9 m-b-10">
+                                                    <input type="number" id="minSalary" name="minSalary" class="form-control">
+                                                </div>
+                                                <div class="col-12 col-md-9 m-b-10">
+                                                    <input type="number" id="maxSalary" name="maxSalary" class="form-control">
+                                                </div>-->
                     </div>
                     <div class="m-b-10">
                         <center>
@@ -145,11 +152,11 @@
     });
     function success() {
         swal({
-            title: 'Your data has been saved',
-            type: 'sucess',
-            showConfirmButton: false,
+            title: "Success Saved!",
+            text: "You Success Saved New Data!",
+            icon: "success",
             timer: 2500
-        })
+        });
     }
     function coba() {
         swal({
@@ -157,7 +164,7 @@
             text: "You won't be able to revert this!",
             type: 'warning',
             showCancelButton: true,
-            timer: 8000,
+            timer: 9000,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, delete it!'
@@ -169,7 +176,7 @@
                         'success'
                         )
             }
-        })
+        });
     }
 
 </script>

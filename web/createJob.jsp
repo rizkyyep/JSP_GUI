@@ -27,21 +27,20 @@
                             <div class="card-body card-block">
                                 <form action="jobServlet?action=insert" method="post" class="form-vertical">
                                     <div class="row form-group">
-                                        <div class="col-12 col-md-9">
+                                        <div class="col-12 col-md-9 m-b-10">
                                             <input type="text" id="jobId" name="jobId" placeholder="Enter Job Id..." class="form-control">
                                         </div>
-                                        <div class="col-12 col-md-9">
+                                        <div class="col-12 col-md-9 m-b-10">
                                             <input type="text" id="jobTitle" name="jobTitle" placeholder="Enter Job Title..." class="form-control">
                                         </div>
-                                        <div class="col-12 col-md-9">
+                                        <div class="col-12 col-md-9 m-b-10">
                                             <input type="text" id="minSalary" name="minSalary" placeholder="Enter Minimal Salary..." class="form-control">
                                         </div>
-                                        <div class="col-12 col-md-9">
+                                        <div class="col-12 col-md-9 m-b-10">
                                             <input type="text" id="maxSalary" name="maxSalary" placeholder="Enter Maximal Salary..." class="form-control">
                                         </div>
                                     </div>
                                     <input type="submit" name="submit" value="Save" class="btn btn-primary btn-sm"/>
-
                                 </form>
                             </div>
                             <div class="card-footer">
