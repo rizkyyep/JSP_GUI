@@ -158,15 +158,18 @@ public class ManualTest {
 
 
         
-          UserAccountController accountController=new UserAccountController();
-         
-         boolean b=  accountController.selectByName("demen");
-         if(b){
-             System.out.println("uname  tersedia");
-
-        }
-         else{
-             System.out.println("uname tidak tersedia");
-         }
+//          UserAccountController accountController=new UserAccountController();
+//         
+//         boolean b=  accountController.selectByName("demen");
+//         if(b){
+//             System.out.println("uname  tersedia");
+//
+//        }
+//         else{
+//             System.out.println("uname tidak tersedia");
+//         }
+            GeneralDao id=new GeneralDao(HibernateUtil.getSessionFactory());
+          //  id.delete(id)
+            
     }
 }

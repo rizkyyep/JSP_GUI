@@ -27,9 +27,7 @@
                 </div>
                 <div class="row m-t-25">
                     <div class="col-12">
-                        <!--<div class="table-responsive table--no-card m-b-30">-->
                         <table id="listItem" class="table table-borderless table-striped table-earning">
-                            <!--<table id="myTable" class="table table-borderless table-striped table-earning">-->
                         <% List<Job> jobs = (ArrayList<Job>) request.getAttribute("jobs"); %>
                         <thead>
                             <tr>
@@ -48,12 +46,12 @@
                                 <td><%=job.getMinSalary()%></td>
                                 <td><%= job.getMaxSalary()%></td>
                                 <td class="text-right">
-                                    <a href="jobServlet?action=edit&jobId=<%=job.getJobId()%>" 
-                                       data-toggle="tooltip" data-placement="top" 
+                                    <a href="jobServlet?action=edit&jobId=<%=job.getJobId()%>&jobTitle=<%=job.getJobTitle()%>" 
+                                       data-toggle="modal" data-target="#edititem" data-placement="top" 
                                        title="Edit"><i class="fas fa-edit fa-lg" style="color:#26a65b;"></i>                                     
                                     </a>
                                     &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a href="jobServlet?action=delete&id=<%=job.getJobId()%>" 
+                                    <a href="jobServlet?action=delete&jobId=<%=job.getJobId()%>&jobTitle=<%=job.getJobTitle()%>" 
                                        data-toggle="tooltip" data-placement="top" 
                                        title="Delete"><i class="fas fa-trash fa-lg"style="color:#f03434;"onclick="coba()"></i>
                                     </a>
@@ -64,7 +62,6 @@
                     </table>
                 </div>
             </div>
-
             <div class="row">
                 <div class="col-12 col-md-12">
                     <div class="copyright">
@@ -108,18 +105,6 @@
                             <span class="input-group-addon"><i class="fas fa-dollar-sign"></i></span>
                             <input id="maxSalary" type="number" class="form-control" name="maxSalary" placeholder="Maximal Salary">
                         </div>
-                        <!--                        <div class="col-12 col-md-9 m-b-10">
-                                                    <input type="text" id="jobId" name="jobId" class="form-control">
-                                                </div>
-                                                <div class="col-12 col-md-9 m-b-10">
-                                                    <input type="text" id="jobTitle" name="jobTitle" class="form-control">
-                                                </div>
-                                                <div class="col-12 col-md-9 m-b-10">
-                                                    <input type="number" id="minSalary" name="minSalary" class="form-control">
-                                                </div>
-                                                <div class="col-12 col-md-9 m-b-10">
-                                                    <input type="number" id="maxSalary" name="maxSalary" class="form-control">
-                                                </div>-->
                     </div>
                     <div class="m-b-10">
                         <center>
@@ -129,14 +114,56 @@
                     </div>
                 </form>
             </div>
-            <!--            <div class="modal-footer">
-                           
-                            <button type="button" class="btn btn-primary">Confirm</button>
-                        </div>-->
         </div>
     </div>
 </div>
 <!-- end modal add item -->
+
+
+
+<!-- modal edit item -->
+<div class="modal fade" id="edititem" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="fas fa-briefcase" id="smallmodalLabel"> Create New Job Data</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="regionServlet?action=update" method="post" class="form-horizontal">
+                    <div class="row form-group">
+                        <div class="input-group col-12 col-md-5 m-b-10">
+                            <span class="input-group-addon"><i class="fas fa-id-card"></i></span>
+                            <input type="text" value="<%= request.getAttribute("jobId")%>" id="jobId" name="jobId" class="form-control" readonly>
+                        </div>
+                        <div class="input-group col-12 col-md-8 m-b-10">
+                            <span class="input-group-addon"><i class="fas fa-briefcase"></i></span>
+                            <input type="text" value="<%= request.getAttribute("jobTitle")%>" id="jobTitle" name="jobTitle"  class="form-control" required>
+                        </div>
+                        <div class="input-group col-12 col-md-8 m-b-10">
+                            <span class="input-group-addon"><i class="fas fa-dollar-sign"></i></span>
+                            <input type="number" value="<%= request.getAttribute("minSalary")%>"  id="minSalary"  name="minSalary" class="form-control" required>
+                        </div>
+                        <div class="input-group col-12 col-md-8 m-b-10">
+                            <span class="input-group-addon"><i class="fas fa-dollar-sign"></i></span>
+                            <input type="number" value="<%= request.getAttribute("maxSalary")%>"  id="maxSalary"  name="maxSalary" class="form-control" required>
+                        </div>      
+                    </div>
+                    <div class="m-b-10">
+                        <center>
+                            <input type="submit" name="submit" value="Save" class="btn btn-primary" onclick="success()"/>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button> 
+                        </center>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end modal edit item -->
+
 
 <!-- Declaration of Datatables -->
 <script type="text/javascript">
@@ -154,27 +181,29 @@
         swal({
             title: "Success Saved!",
             text: "You Success Saved New Data!",
-            icon: "success",
+            type: "success",
             timer: 2500
         });
     }
+
     function coba() {
         swal({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
             type: 'warning',
             showCancelButton: true,
-            timer: 9000,
+            timer: 2500,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.value) {
-                swal(
-                        'Deleted!',
-                        'Your file has been deleted.',
-                        'success'
-                        )
+                swal({
+                    title: 'Deleted!',
+                    text: 'Your file has been deleted.',
+                    type: 'success',
+                    timer: 2500
+                })
             }
         });
     }

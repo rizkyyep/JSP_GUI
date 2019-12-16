@@ -74,22 +74,13 @@ public class JobServlet extends HttpServlet {
             throws ServletException, IOException {
 
         List<Job> jobs = this.dao.select("Job");
-
-        String redirect = "";
         String action = request.getParameter("action");
         try {
             switch (action) {
                 case "insert":
-//                    redirect = "listRegion.jsp";
-//                    request.setAttribute("regions", regions);
                     insert(request, response);
                     break;
-//            case "/insert":
-//                insertBook(request, response);
-//                break;
                 case "delete":
-//                    redirect = "listRegion.jsp";
-//                    request.setAttribute("regions", regions);
                     delete(request, response);
                     break;
                 case "edit":
@@ -99,8 +90,6 @@ public class JobServlet extends HttpServlet {
                     update(request, response);
                     break;
                 default:
-//                    redirect = "listRegion.jsp";
-//                    request.setAttribute("regions", regions);
                     list(request, response);
                     break;
             }
@@ -122,11 +111,12 @@ public class JobServlet extends HttpServlet {
             throws ServletException, IOException {
         doGet(request, response);
     }
-    
+
     private void delete(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
-        String id = request.getParameter("jobId");
-        dao.delete(new Job(id));
+        String jobId = request.getParameter("jobId");
+        String jobTitle = request.getParameter("jobTitle");
+        dao.delete(new Job(jobId, jobTitle));
         response.sendRedirect("jobServlet?action=list");
     }
 
@@ -174,20 +164,6 @@ public class JobServlet extends HttpServlet {
         rd.forward(request, response);
     }
 
-//    public int max() {
-//        if (dao.getNewId("Region", "regionId") == null) {
-//            int id = 1;
-//            return id;
-//        } else {
-//
-//            String a = "" + dao.getNewId("Region", "regionId") + "";
-//            int max = Integer.parseInt(a);
-//            int newId = max + 1;
-//
-//            return newId;
-//
-//        }
-//    }
     public List<Job> getAll() {
         return this.dao.select("Job");
     }
@@ -198,6 +174,7 @@ public class JobServlet extends HttpServlet {
      *
      * @return a String containing servlet description
      */
+    
     @Override
     public String getServletInfo() {
         return "Short description";
