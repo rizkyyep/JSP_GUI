@@ -124,9 +124,9 @@ public class JobServlet extends HttpServlet {
             throws SQLException, IOException {
         String jobId = request.getParameter("jobId");
         String jobTitle = request.getParameter("jobTitle");
-        String minSalary = request.getParameter("minSalary");
+        int minSalary = Integer.parseInt(request.getParameter("minSalary"));
         String maxSalary = request.getParameter("maxSalary");
-        dao.save(new Job(jobId, jobTitle, Integer.parseInt(minSalary), Integer.parseInt(maxSalary)));
+        dao.save(new Job(jobId, jobTitle, minSalary, Integer.parseInt(maxSalary)));
         response.sendRedirect("jobServlet?action=list");
     }
 
