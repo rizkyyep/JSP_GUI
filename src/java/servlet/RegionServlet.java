@@ -142,7 +142,6 @@ public class RegionServlet extends HttpServlet {
     private void showForm(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
         String id = request.getParameter("id");
-//        String name = request.getParameter("nameRegion");
         Region region = (Region) this.dao.selectByField("Region", "regionId", id);
         String regionId = region.getRegionId().toString();
         String regionName = region.getRegionName();
