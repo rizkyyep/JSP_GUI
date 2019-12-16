@@ -94,7 +94,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="smallmodalLabel">Small Modal</h5>
+                <h5 class="modal-title" id="smallmodalLabel">Add Location</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -167,17 +167,19 @@
 
 
 <!-- memulai modal nya. pada id="$myModal" harus sama dengan data-target="#myModal" pada tombol di atas -->
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Data siswa</h4>
+                <h5 class="modal-title" id="myModalLabel">Edit Location</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <!-- memulai untuk konten dinamis -->
             <!-- lihat id="data_siswa", ini yang di pangging pada ajax di bawah -->
             <div class="modal-body" id="data">
-                
+
             </div>
             <!-- selesai konten dinamis -->
             <div class="modal-footer">
@@ -235,25 +237,41 @@
 
 
 <script type="text/javascript">
-    // ini menyiapkan dokumen agar siap grak :)
     $(document).ready(function () {
-        // yang bawah ini bekerja jika tombol lihat data (class="view_data") di klik
-        $('.view_data').click(function () {
-            // membuat variabel id, nilainya dari attribut id pada button
-            // id="'.$row['id'].'" -> data id dari database ya sob, jadi dinamis nanti id nya
+        $("body").on('click', '.view_data', function () {
             var id = $(this).attr("id");
-            // memulai ajax
             $.ajax({
-                url: 'locationServlet?action=byId&id='+id, // set url -> ini file yang menyimpan query tampil detail data siswa
-                method: 'post', // method -> metodenya pakai post. Tahu kan post? gak tahu? browsing aja :)
-                data: {id: id}, // nah ini datanya -> {id:id} = berarti menyimpan data post id yang nilainya dari = var id = $(this).attr("id");
-                success: function (data) {		// kode dibawah ini jalan kalau sukses
-                    $('#data').html(data);	// mengisi konten dari -> <div class="modal-body" id="data_siswa">
-                    $('#editModal').modal("show");	// menampilkan dialog modal nya
+                url: "locationServlet?action=byId&id="+id,
+                type: "GET",
+                data: {id: id },
+                success: function (data) {
+                    $("#data").html(data);
+                    $("#editModal").modal('show', {backdrop: 'true'});
                 }
             });
         });
     });
+
+
+//    // ini menyiapkan dokumen agar siap grak :)
+//    $(document).ready(function () {
+//        // yang bawah ini bekerja jika tombol lihat data (class="view_data") di klik
+//        $('.view_data').click(function (e) {
+//            // membuat variabel id, nilainya dari attribut id pada button
+//            // id="'.$row['id'].'" -> data id dari database ya sob, jadi dinamis nanti id nya
+//            var id = $(this).attr("id");
+//            // memulai ajax
+//            $.ajax({
+//                url: 'locationServlet?action=byId&id='+id, // set url -> ini file yang menyimpan query tampil detail data siswa
+//                method: 'post', // method -> metodenya pakai post. Tahu kan post? gak tahu? browsing aja :)
+//                data: {id: id}, // nah ini datanya -> {id:id} = berarti menyimpan data post id yang nilainya dari = var id = $(this).attr("id");
+//                success: function (data) {		// kode dibawah ini jalan kalau sukses
+//                    $('#data').html(data);	// mengisi konten dari -> <div class="modal-body" id="data_siswa">
+//                    $('#editModal').modal("show");	// menampilkan dialog modal nya
+//                }
+//            });
+//        });
+//    });
 </script>
 
 

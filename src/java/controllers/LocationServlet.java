@@ -145,11 +145,11 @@ public class LocationServlet extends HttpServlet {
         String state = request.getParameter("stateProvince");
         String country = request.getParameter("countryId");
         dao.save(new Location(new BigDecimal(max()), name, postal, city, state, new Country(country)));
-        String alertSuccess = "true";
-        request.setAttribute("alertSuccess", alertSuccess);
-        RequestDispatcher rd = request.getRequestDispatcher("listLocation.jsp");
-//        response.sendRedirect("locationServlet?action=list");
-        rd.forward(request, response);
+//        String alertSuccess = "true";
+//        request.setAttribute("alertSuccess", alertSuccess);
+//        RequestDispatcher rd = request.getRequestDispatcher("listLocation.jsp");
+        response.sendRedirect("locationServlet?action=list");
+//        rd.forward(request, response);
     }
 
     public int max() {
@@ -222,7 +222,7 @@ public class LocationServlet extends HttpServlet {
         request.setAttribute("countryName", loc.getCountryId().getCountryName());
         request.setAttribute("countryAll", countryAll);
         
-        RequestDispatcher rd = request.getRequestDispatcher("newjsp.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("editLocation.jsp");
         rd.forward(request, response);
     }
 
