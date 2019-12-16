@@ -8,6 +8,22 @@
         <servlet-name>RegionServlet</servlet-name>
         <servlet-class>controllers.RegionServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LocationServlet</servlet-name>
+        <servlet-class>controllers.LocationServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DepartmentServlet</servlet-name>
+        <servlet-class>controllers.DepartmentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>JobServlet</servlet-name>
+        <servlet-class>controllers.JobServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CountryServlet</servlet-name>
+        <servlet-class>controllers.CountryServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TestServlet</servlet-name>
         <url-pattern>/testServlet</url-pattern>
@@ -15,6 +31,22 @@
     <servlet-mapping>
         <servlet-name>RegionServlet</servlet-name>
         <url-pattern>/regionServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LocationServlet</servlet-name>
+        <url-pattern>/locationServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DepartmentServlet</servlet-name>
+        <url-pattern>/departmentServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>JobServlet</servlet-name>
+        <url-pattern>/jobServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CountryServlet</servlet-name>
+        <url-pattern>/countryServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

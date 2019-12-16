@@ -139,6 +139,22 @@
                         <a href="regionServlet?action=list">
                             <i class="fas fa-chart-bar"></i>Region Data</a>
                     </li>
+                    <li>
+                        <a href="locationServlet?action=list">
+                            <i class="fas fa-chart-bar"></i>Location Data</a>
+                    </li>
+                    <li>
+                        <a href="departmentServlet?action=list">
+                            <i class="fas fa-chart-bar"></i>Department Data</a>
+                    </li>
+                    <li>
+                        <a href="jobServlet?action=list">
+                            <i class="fas fa-chart-bar"></i>Job Data</a>
+                    </li>
+                    <li>
+                        <a href="countryServlet?action=list">
+                            <i class="fas fa-chart-bar"></i>Country Data</a>
+                    </li>
                     <li class="has-sub">
                         <a class="js-arrow" href="#">
                            <i class="fas fa-address-book"></i>Pages</a>

@@ -22,8 +22,9 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong>Region</strong> Form
+                                <strong>Region</strong> Form 
                             </div>
+                        
                             <div class="card-body card-block">
                                 <form action="regionServlet?action=update" method="post" class="form-horizontal">
                                     <div class="row form-group">

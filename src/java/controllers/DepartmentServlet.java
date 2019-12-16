@@ -1,10 +1,10 @@
-package controllers;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package controllers;
+
 import daos.GeneralDao;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,25 +15,25 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import models.Region;
+import models.Department;
 import tools.HibernateUtil;
 
 /**
  *
- * @author ASUS
+ * @author Rizky
  */
-public class RegionServlet extends HttpServlet {
+public class DepartmentServlet extends HttpServlet {
 
+    
     private GeneralDao dao;
 
-    public RegionServlet() {
+    public DepartmentServlet() {
         this.dao = new GeneralDao(HibernateUtil.getSessionFactory());
     }
 
-    public RegionServlet(GeneralDao dao) {
+    public DepartmentServlet(GeneralDao dao) {
         this.dao = dao;
     }
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -47,11 +47,16 @@ public class RegionServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-
-//            List<Region> regions = this.dao.select("Region");
-//            request.setAttribute("regions", regions);
-//            RequestDispatcher rd = request.getRequestDispatcher("listRegion.jsp");
-//            rd.forward(request, response);
+            /* TODO output your page here. You may use following sample code. */
+//            out.println("<!DOCTYPE html>");
+//            out.println("<html>");
+//            out.println("<head>");
+//            out.println("<title>Servlet DepartmentServlet</title>");            
+//            out.println("</head>");
+//            out.println("<body>");
+//            out.println("<h1>Servlet DepartmentServlet at " + request.getContextPath() + "</h1>");
+//            out.println("</body>");
+//            out.println("</html>");
         }
     }
 
@@ -67,7 +72,8 @@ public class RegionServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Region> regions = this.dao.select("Region");
+//        processRequest(request, response);
+        List<Department> department = this.dao.select("Department");
 
         String redirect = "";
         String action = request.getParameter("action");
@@ -76,22 +82,19 @@ public class RegionServlet extends HttpServlet {
                 case "insert":
 //                    redirect = "listRegion.jsp";
 //                    request.setAttribute("regions", regions);
-                    insert(request, response);
-                    break;
-//            case "/insert":
-//                insertBook(request, response);
-//                break;
+//                    insert(request, response);
+//                    break;
                 case "delete":
 //                    redirect = "listRegion.jsp";
 //                    request.setAttribute("regions", regions);
-                    delete(request, response);
-                    break;
+//                    delete(request, response);
+//                    break;
                 case "edit":
-                    showForm(request, response);
-                    break;
+//                    showForm(request, response);
+//                    break;
                 case "update":
-                    update(request, response);
-                    break;
+//                    update(request, response);
+//                    break;
                 default:
 //                    redirect = "listRegion.jsp";
 //                    request.setAttribute("regions", regions);
@@ -101,6 +104,7 @@ public class RegionServlet extends HttpServlet {
         } catch (SQLException ex) {
             throw new ServletException(ex);
         }
+//        processRequest(request, response);
     }
 
     /**
@@ -114,69 +118,16 @@ public class RegionServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+//        processRequest(request, response);
         doGet(request, response);
     }
-
-    private void delete(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException, ServletException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        dao.delete(new Region(id));
-        response.sendRedirect("regionServlet?action=list");
-    }
-
-    private void insert(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException {
-        String name = request.getParameter("nameRegion");
-        dao.save(new Region(max(), name));
-        response.sendRedirect("regionServlet?action=list");
-    }
-
-    private void update(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException {
-        String id = request.getParameter("idRegion");
-        String name = request.getParameter("nameRegion");
-        dao.save(new Region(Integer.parseInt(id), name));
-        response.sendRedirect("regionServlet?action=list");
-    }
-
-    private void showForm(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException, ServletException {
-        String id = request.getParameter("id");
-//        String name = request.getParameter("nameRegion");
-        Region region = (Region) this.dao.selectByField("Region", "regionId", id);
-        String regionId = region.getRegionId().toString();
-        String regionName = region.getRegionName();
-        request.setAttribute("regionId", regionId);
-        request.setAttribute("regionName", regionName);
-        RequestDispatcher rd = request.getRequestDispatcher("updateRegion.jsp");
-        rd.forward(request, response);
-    }
-
+    
     private void list(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
-        List<Region> regions = this.dao.select("Region");
-        request.setAttribute("regions", regions);
-        RequestDispatcher rd = request.getRequestDispatcher("listRegion.jsp");
+        List<Department> department = this.dao.select("Department");
+        request.setAttribute("departments", department);
+        RequestDispatcher rd = request.getRequestDispatcher("listDepartment.jsp");
         rd.forward(request, response);
-    }
-
-    public int max() {
-        if (dao.getNewId("Region", "regionId") == null) {
-            int id = 1;
-            return id;
-        } else {
-
-            String a = "" + dao.getNewId("Region", "regionId") + "";
-            int max = Integer.parseInt(a);
-            int newId = max + 1;
-
-            return newId;
-
-        }
-    }
-
-    public List<Region> getAll() {
-        return this.dao.select("Region");
     }
 
     /**

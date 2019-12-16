@@ -44,7 +44,14 @@
                                 <td><%=region.getRegionId()%></td>
                                 <td><%= region.getRegionName()%></td>
                                 <td class="text-right">
-
+<!--
+                                    <a data-toggle="modal" data-target="editmodal" data-placement="top" 
+                                       title="Edit"><i class="fas fa-edit fa-lg" data="<%= region.getRegionId()%>" style="color:#26a65b;"></i></a>
+                                       
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <a href="regionServlet?action=delete&id=<%=region.getRegionId()%> " 
+                                       data-toggle="tooltip" data-placement="top" 
+                                       title="Delete"><i class="fas fa-trash fa-lg" style="color:#f03434;"></i></a>-->
                                     <a href="regionServlet?action=edit&id=<%= region.getRegionId()%>" 
                                        data-toggle="tooltip" data-placement="top" 
                                        title="Edit"><i class="fas fa-edit fa-lg" style="color:#26a65b;"></i></a>
@@ -64,11 +71,11 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="copyright">
-                        
-                        
+
+
                         <button class="btn btn-primary" onclick="coba()">coba nih</button>
-                        
-                        
+
+
                         <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
                         <h1>Halaman Utama!</h1>
                         <a href="regionServlet?action=list">Region</a>
@@ -115,6 +122,41 @@
 </div>
 <!-- end modal add item -->
 
+<!-- modal add item -->
+<div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="smallmodalLabel">Small Modal</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="regionServlet?action=insert" method="post" class="form-horizontal">
+                    <div class="row form-group">
+                        <div class="col col-md-3">
+                            <label for="hf-password" class=" form-control-label">Region Name</label>
+                        </div>
+                        <div class="col-12 col-md-9">
+                            <input type="text" id="nameRegion" name="nameRegion" placeholder="Enter Region Name..." class="form-control">
+                        </div>
+                    </div>
+                    <center>
+                        <input type="submit" name="submit" value="Save" class="btn btn-primary"/>
+                    </center>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <!--<button type="button" class="btn btn-primary">Confirm</button>-->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end modal add item -->
+
+
 <!-- Declaration of Datatables -->
 <script type="text/javascript">
     $(document).ready(function () {
@@ -127,23 +169,31 @@
         );
 
     });
-
+    
+    
+    
+    
+    
+    
+    
     function coba() {
         swal({
-  title: 'Are you sure?',
-  text: "You won't be able to revert this!",
-  type: 'warning',
-  showCancelButton: true,
-  confirmButtonColor: '#3085d6',
-  cancelButtonColor: '#d33',
-  confirmButtonText: 'Yes, delete it!'
-}).then(function () {
-  swal(
-    'Deleted!',
-    'Your file has been deleted.',
-    'success'
-  )
-})
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+                swal(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                        )
+            }
+        })
     }
 </script>
 
