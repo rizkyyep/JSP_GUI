@@ -16,19 +16,32 @@
     <!-- MAIN CONTENT-->
     <div class="main-content">
         <div class="section__content section__content--p30">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="overview-wrap">
-                            <h2 class="title-1">Job Data</h2>
-                            <button data-toggle="modal" data-target="#additem" class="au-btn au-btn-icon au-btn--blue">
-                                <i class="zmdi zmdi-plus"></i>add item</button>
-                        </div>
+            <div class="container-fluid">     
+                <div class="flash-data" data-flashdata="<%= request.getAttribute("flash")%>"> 
+                <script>
+                    const flashdata = $('.flash-data').data('flashdata');
+                    if (flashdata) {
+                        swal({
+                            title: 'Information',
+                            text: 'Success ' + flashdata,
+                            type: 'success'
+                        });
+                    }
+                </script>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="overview-wrap">
+                        <h2 class="title-1">Job Data </h2>
+                        <button data-toggle="modal" data-target="#additem" class="au-btn au-btn-icon au-btn--blue">
+                            <i class="zmdi zmdi-plus"></i>add item</button>
                     </div>
                 </div>
-                <div class="row m-t-25">
-                    <div class="col-12">
-                        <table id="listItem" class="table table-borderless table-striped table-earning">
+            </div>
+            <div class="row m-t-25">
+                <div class="col-12">
+                    <table id="listItem" class="table table-borderless table-striped table-earning">
                         <% List<Job> jobs = (ArrayList<Job>) request.getAttribute("jobs"); %>
                         <thead>
                             <tr>
@@ -48,13 +61,13 @@
                                 <td><%= job.getMaxSalary()%></td>
                                 <td class="text-right">
                                     <a href="<%=job.getJobId()%>" class="view_data"
-                                       data-toggle="modal" id="<%=job.getJobId()%>" data-target="#editModal"
+                                       data-toggle="modal" data-placement="top" id="<%=job.getJobId()%>" data-target="#editModal"
                                        title="Edit"><i class="fas fa-edit fa-lg" style="color:#26a65b;"></i>                                     
                                     </a>
                                     &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a href="jobServlet?action=delete&jobId=<%=job.getJobId()%>&jobTitle=<%=job.getJobTitle()%>" 
-                                       data-toggle="tooltip" data-placement="top" 
-                                       title="Delete"><i class="fas fa-trash fa-lg"style="color:#f03434;"></i>
+                                    <a href="jobServlet?action=delete&jobId=<%= job.getJobId()%>&jobTitle=<%=job.getJobTitle()%>" 
+                                       class="delete-btn" data-toogle="modal" title="Delete">
+                                        <i class="fas fa-trash fa-lg" style="color:#f03434;"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -128,12 +141,8 @@
                 <h4 class="modal-title" id="myModalLabel">Edit Form Job</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
-            <!-- memulai untuk konten dinamis -->
-            <!-- lihat id="data_siswa", ini yang di pangging pada ajax di bawah -->
             <div class="modal-body" id="data">
-                
             </div>
-            <!-- selesai konten dinamis -->
             <div class="modal-footer">
             </div>
         </div>
@@ -148,8 +157,7 @@
                 {
                     "columnDefs": [
                         {"orderable": false, "targets": 2}
-                    ],
-                    "pageLength": 50
+                    ]
                 }
         );
 
@@ -168,38 +176,34 @@
 </script>
 
 <script type="text/javascript">
-    function coba() {
+    $('.delete-btn').on('click', function () {
+        event.preventDefault();
+
+        const href = $(this).attr("href");
         swal({
             title: 'Are you sure?',
-            text: "You won't be able to revert this!",
+            text: "Delete Data",
             type: 'warning',
             showCancelButton: true,
-            timer: 3000,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
+            confirmButtonText: 'Yes'
         }).then((result) => {
             if (result.value) {
-                swal({
-                    title: 'Deleted!',
-                    text: 'Your file has been deleted.',
-                    type: 'success',
-                    timer: 3000
-                });
+                window.location.href = href;
             }
         });
-    }
-
+    });
 </script>
 
 <script type="text/javascript">
-   $(document).ready(function () {
+    $(document).ready(function () {
         $("body").on('click', '.view_data', function () {
             var id = $(this).attr("id");
             $.ajax({
-                url: "jobServlet?action=byId&id="+id,
+                url: "jobServlet?action=byId&id=" + id,
                 type: "GET",
-                data: {id: id },
+                data: {id: id},
                 success: function (data) {
                     $("#data").html(data);
                     $("#editModal").modal('show', {backdrop: 'true'});

@@ -83,9 +83,6 @@ public class JobServlet extends HttpServlet {
                 case "delete":
                     delete(request, response);
                     break;
-                case "edit":
-                    showForm(request, response);
-                    break;
                 case "update":
                     update(request, response);
                     break;
@@ -121,17 +118,21 @@ public class JobServlet extends HttpServlet {
         String jobId = request.getParameter("jobId");
         String jobTitle = request.getParameter("jobTitle");
         dao.delete(new Job(jobId, jobTitle));
-        response.sendRedirect("jobServlet?action=list");
+        request.setAttribute("flash", "Delete");
+        RequestDispatcher rd = request.getRequestDispatcher("jobServlet?action=list");
+        rd.forward(request, response);
     }
 
     private void insert(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException {
+            throws SQLException, IOException, ServletException {
         String jobId = request.getParameter("jobId");
         String jobTitle = request.getParameter("jobTitle");
         String minSalary = request.getParameter("minSalary");
         String maxSalary = request.getParameter("maxSalary");
         dao.save(new Job(jobId, jobTitle, Integer.parseInt(minSalary), Integer.parseInt(maxSalary)));
-        response.sendRedirect("jobServlet?action=list");
+        request.setAttribute("flash", "Save");
+        RequestDispatcher rd = request.getRequestDispatcher("jobServlet?action=list");
+        rd.forward(request, response);
     }
 
     private void update(HttpServletRequest request, HttpServletResponse response)
@@ -142,22 +143,6 @@ public class JobServlet extends HttpServlet {
         String maxSalary = request.getParameter("maxSalary");
         dao.save(new Job(jobId, jobTitle, Integer.parseInt(minSalary), Integer.parseInt(maxSalary)));
         response.sendRedirect("jobServlet?action=list");
-    }
-
-    private void showForm(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException, ServletException {
-        String jobId = request.getParameter("jobId");
-        Job job = (Job) this.dao.selectByField("Job", "jobId", jobId);
-        String id = job.getJobId();
-        String title = job.getJobTitle();
-        String min = job.getMinSalary().toString();
-        String max = job.getMaxSalary().toString();
-        request.setAttribute("jobId", id);
-        request.setAttribute("jobTitle", title);
-        request.setAttribute("minSalary", min);
-        request.setAttribute("maxSalary", max);
-        RequestDispatcher rd = request.getRequestDispatcher("updateJob.jsp");
-        rd.forward(request, response);
     }
 
     private void list(HttpServletRequest request, HttpServletResponse response)
