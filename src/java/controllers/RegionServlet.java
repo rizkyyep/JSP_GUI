@@ -5,18 +5,58 @@ package controllers;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import com.mchange.io.InputStreamUtils;
+import com.sun.java.swing.plaf.windows.resources.windows;
 import daos.GeneralDao;
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.jsp.PageContext;
 import models.Region;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 import tools.HibernateUtil;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporter;
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JRResultSetDataSource;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.JasperRunManager;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
+import net.sf.jasperreports.swing.JRViewer;
+import org.hibernate.Session;
+import static org.slf4j.helpers.Util.report;
 
 /**
  *
@@ -92,6 +132,9 @@ public class RegionServlet extends HttpServlet {
                 case "update":
                     update(request, response);
                     break;
+                case "getReport":
+                    getReport(request, response);
+                    break;
                 default:
 //                    redirect = "listRegion.jsp";
 //                    request.setAttribute("regions", regions);
@@ -100,6 +143,14 @@ public class RegionServlet extends HttpServlet {
             }
         } catch (SQLException ex) {
             throw new ServletException(ex);
+        } catch (JRException ex) {
+            Logger.getLogger(RegionServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(RegionServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(RegionServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(RegionServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -178,6 +229,46 @@ public class RegionServlet extends HttpServlet {
     public List<Region> getAll() {
         return this.dao.select("Region");
     }
+
+    private void getReport(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, SQLException, JRException, ClassNotFoundException, IllegalAccessException, InstantiationException {
+//        try {
+//            Class.forName("oracle.jdbc.driver.OracleDriver").newInstance();
+//            Connection koneksi = (Connection) DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "system", "sys");
+//           
+//            JasperReport jasperReport = JasperCompileManager.compileReport("web/report/ReportRegion.jrxml");
+//            Map<String, Object> param = null;
+//
+//            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, param, koneksi);
+//
+//            JRPdfExporter exporter = new JRPdfExporter();
+//            exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+//            exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(response.getOutputStream()));
+//            SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
+//            configuration.setMetadataAuthor("Elsa");
+//            exporter.setConfiguration(configuration);
+//            exporter.exportReport();
+//
+////            response.setContentType("application/x-pdf");
+////            response.setHeader("Content-disposition", "inline; filename=myReport.pdf");
+////            OutputStream outputStream = response.getOutputStream();
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+            Class.forName("oracle.jdbc.driver.OracleDriver").newInstance();
+            Connection koneksi = (Connection) DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "system", "sys");
+            JasperDesign jd = JRXmlLoader.load("web/report/ReportRegion.jrxml");
+            JasperReport jr = JasperCompileManager.compileReport(jd);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jr, null, koneksi);
+            JRViewer viewer = new JRViewer(jasperPrint);
+            
+            response.setContentType("application/x-pdf");
+            response.setHeader("Content-disposition", "inline; filename=myReport.pdf");
+            OutputStream outputStream = response.getOutputStream();
+
+    }
+   
 
     /**
      * Returns a short description of the servlet.

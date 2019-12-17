@@ -27,6 +27,8 @@
                             <button data-toggle="modal" data-target="#additem" class="au-btn au-btn-icon au-btn--blue">
                                 <i class="zmdi zmdi-plus"></i>add item</button>
                         </div>
+                                                <button class="btn btn-primary" onclick="window.print()"><i class="fa fa-book">&nbsp;&nbsp;Print</i></button>
+
                     </div>
                 </div>
                 <div class="row m-t-25">

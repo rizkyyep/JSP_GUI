@@ -22,7 +22,10 @@
                             <h2 class="title-1">Region Data</h2>
                             <button data-toggle="modal" data-target="#additem" class="au-btn au-btn-icon au-btn--blue">
                                 <i class="zmdi zmdi-plus"></i>add item</button>
+                               
                         </div>
+                        <button class="btn btn-primary" onclick="window.print()"><i class="fa fa-book">&nbsp;&nbsp;Print</i></button>
+                        <a href="regionServlet?action=getReport">Print Ireport</a>
                     </div>
                 </div>
                 <div class="row m-t-25">
@@ -44,14 +47,6 @@
                                 <td><%=region.getRegionId()%></td>
                                 <td><%= region.getRegionName()%></td>
                                 <td class="text-right">
-<!--
-                                    <a data-toggle="modal" data-target="editmodal" data-placement="top" 
-                                       title="Edit"><i class="fas fa-edit fa-lg" data="<%= region.getRegionId()%>" style="color:#26a65b;"></i></a>
-                                       
-                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a href="regionServlet?action=delete&id=<%=region.getRegionId()%> " 
-                                       data-toggle="tooltip" data-placement="top" 
-                                       title="Delete"><i class="fas fa-trash fa-lg" style="color:#f03434;"></i></a>-->
                                     <a href="regionServlet?action=edit&id=<%= region.getRegionId()%>" 
                                        data-toggle="tooltip" data-placement="top" 
                                        title="Edit"><i class="fas fa-edit fa-lg" style="color:#26a65b;"></i></a>
