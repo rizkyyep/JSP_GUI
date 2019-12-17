@@ -8,6 +8,7 @@ package servlet;
 import daos.GeneralDao;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.System.out;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -89,6 +90,9 @@ public class JobServlet extends HttpServlet {
                 case "update":
                     update(request, response);
                     break;
+                case "byId":
+                    byId(request, response);
+                    break;
                 default:
                     list(request, response);
                     break;
@@ -124,9 +128,9 @@ public class JobServlet extends HttpServlet {
             throws SQLException, IOException {
         String jobId = request.getParameter("jobId");
         String jobTitle = request.getParameter("jobTitle");
-        int minSalary = Integer.parseInt(request.getParameter("minSalary"));
+        String minSalary = request.getParameter("minSalary");
         String maxSalary = request.getParameter("maxSalary");
-        dao.save(new Job(jobId, jobTitle, minSalary, Integer.parseInt(maxSalary)));
+        dao.save(new Job(jobId, jobTitle, Integer.parseInt(minSalary), Integer.parseInt(maxSalary)));
         response.sendRedirect("jobServlet?action=list");
     }
 
@@ -168,16 +172,28 @@ public class JobServlet extends HttpServlet {
         return this.dao.select("Job");
     }
 
+    private void byId(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String id = request.getParameter("id");
+        Job job = (Job) this.dao.selectByField("Job", "jobId", id);
+        List<Job> jobAll = this.dao.select("Job");
+        
+        request.setAttribute("jobId", job.getJobId());
+        request.setAttribute("jobTitle", job.getJobTitle());
+        request.setAttribute("minSalary", job.getMinSalary());
+        request.setAttribute("maxSalary", job.getMaxSalary());
+        request.setAttribute("jobAll", jobAll);
+        
+        RequestDispatcher rd = request.getRequestDispatcher("editJob.jsp");
+        rd.forward(request, response);//To change body of generated methods, choose Tools | Templates.
+    }
     /**
      * /**
      * Returns a short description of the servlet.
      *
      * @return a String containing servlet description
      */
-    
     @Override
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }

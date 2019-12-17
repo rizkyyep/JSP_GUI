@@ -95,7 +95,7 @@
                         </div>
                     </div>
                     <center>
-                        <input type="submit" name="submit" value="Save" class="btn btn-primary"/>
+                        <input type="submit" name="submit" value="Save" class="btn btn-primary" onclick="success()"/>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     </center>
                 </form>
@@ -122,13 +122,22 @@
 
     });
 
+
+    function success() {
+        swal({
+            title: "Success Saved!",
+            text: "You Success Saved New Data!",
+            type: "success",
+            timer: 2500
+        });
+    }
     function coba() {
         swal({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
             type: 'warning',
             showCancelButton: true,
-            timer: 80000,
+            timer: 8000,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, delete it!'
