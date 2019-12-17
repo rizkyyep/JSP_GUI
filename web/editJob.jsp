@@ -12,11 +12,11 @@
     <div class="row form-group">
         <div class="input-group col-12 col-md-8 m-b-10">
             <span class="input-group-addon"><i class="fas fa-id-card"></i></span>
-            <input type="text" id="jobId" value="<%= request.getAttribute("jobId")%>" name="jobId" class="form-control" placeholder="Enter Job ID" readonly="">
+            <input type="text" id="jobId" value="<%= request.getAttribute("jobId")%>" name="jobId" placeholder="Enter Job ID" class="form-control" readonly="">
         </div>
         <div class="input-group col-12 col-md-10 m-b-10">
             <span class="input-group-addon"><i class="fas fa-briefcase"></i></span>
-            <input type="text" id="jobTitle" value="<%= request.getAttribute("jobTitle")%>" name="jobtitle" placeholder="Enter Job Title..." class="form-control" required="">
+            <input type="text" id="jobTitle" value="<%= request.getAttribute("jobTitle")%>" name="jobTitle" placeholder="Enter Job Title..." class="form-control" required="">
         </div>
         <div class="input-group col-12 col-md-10 m-b-10">
             <span class="input-group-addon"><i class="fas fa-dollar-sign"></i></span>

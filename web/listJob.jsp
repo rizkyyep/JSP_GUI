@@ -8,6 +8,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <jsp:include page="templates/header.jsp"></jsp:include>
 <jsp:include page="templates/sidebar.jsp"></jsp:include>
 <jsp:include page="templates/topbar.jsp"></jsp:include>
@@ -119,51 +120,7 @@
 </div>
 <!-- end modal add item -->
 
-
-
 <!-- modal edit item -->
-<!--<div class="modal fade" id="edititem" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="fas fa-briefcase" id="smallmodalLabel"> Create New Job Data</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="regionServlet?action=update" method="post" class="form-horizontal">
-                    <div class="row form-group">
-                        <div class="input-group col-12 col-md-5 m-b-10">
-                            <span class="input-group-addon"><i class="fas fa-id-card"></i></span>
-                            <input type="text" value="<%= request.getAttribute("jobId")%>" id="jobId" name="jobId"  class="form-control" readonly>
-                        </div>
-                        <div class="input-group col-12 col-md-8 m-b-10">
-                            <span class="input-group-addon"><i class="fas fa-briefcase"></i></span>
-                            <input type="text" value="<%= request.getAttribute("jobTitle")%>" id="jobTitle" name="jobTitle"  class="form-control" required>
-                        </div>
-                        <div class="input-group col-12 col-md-8 m-b-10">
-                            <span class="input-group-addon"><i class="fas fa-dollar-sign"></i></span>
-                            <input type="number" value="<%= request.getAttribute("minSalary")%>"  id="minSalary"  name="minSalary" class="form-control" required>
-                        </div>
-                        <div class="input-group col-12 col-md-8 m-b-10">
-                            <span class="input-group-addon"><i class="fas fa-dollar-sign"></i></span>
-                            <input type="number" value="<%= request.getAttribute("maxSalary")%>"  id="maxSalary"  name="maxSalary" class="form-control" required>
-                        </div>      
-                    </div>
-                    <div class="m-b-10">
-                        <center>
-                            <input type="submit" name="submit" value="Save" class="btn btn-primary"/>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button> 
-                        </center>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>-->
-<!-- end modal edit item -->
-
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -182,6 +139,7 @@
         </div>
     </div>
 </div>
+<!-- End modal edit item -->
 
 <!-- Declaration of Datatables -->
 <script type="text/javascript">
@@ -250,4 +208,5 @@
         });
     });
 </script>
+
 <jsp:include page="templates/footer.jsp"></jsp:include>

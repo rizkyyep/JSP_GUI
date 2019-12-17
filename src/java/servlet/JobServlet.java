@@ -8,7 +8,6 @@ package servlet;
 import daos.GeneralDao;
 import java.io.IOException;
 import java.io.PrintWriter;
-import static java.lang.System.out;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -110,6 +109,7 @@ public class JobServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -135,7 +135,7 @@ public class JobServlet extends HttpServlet {
     }
 
     private void update(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException {
+            throws SQLException, IOException, ServletException {
         String jobId = request.getParameter("jobId");
         String jobTitle = request.getParameter("jobTitle");
         String minSalary = request.getParameter("minSalary");
@@ -174,18 +174,15 @@ public class JobServlet extends HttpServlet {
 
     private void byId(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("id");
-        Job job = (Job) this.dao.selectByField("Job", "jobId", id);
-        List<Job> jobAll = this.dao.select("Job");
-        
+        Job job = (Job) this.dao.selectByField("Job", "jobId", id);     
         request.setAttribute("jobId", job.getJobId());
         request.setAttribute("jobTitle", job.getJobTitle());
         request.setAttribute("minSalary", job.getMinSalary());
         request.setAttribute("maxSalary", job.getMaxSalary());
-        request.setAttribute("jobAll", jobAll);
-        
         RequestDispatcher rd = request.getRequestDispatcher("editJob.jsp");
-        rd.forward(request, response);//To change body of generated methods, choose Tools | Templates.
+        rd.forward(request, response);
     }
+    
     /**
      * /**
      * Returns a short description of the servlet.
