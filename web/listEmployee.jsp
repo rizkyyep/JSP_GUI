@@ -212,6 +212,7 @@
                     </div>
 
                 </div>
+                                    
             </div>
             <!-- end modal add item -->
 
