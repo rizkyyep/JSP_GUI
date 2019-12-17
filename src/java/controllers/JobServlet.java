@@ -8,6 +8,7 @@ package controllers;
 import daos.GeneralDao;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.System.out;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -74,22 +75,13 @@ public class JobServlet extends HttpServlet {
             throws ServletException, IOException {
 
         List<Job> jobs = this.dao.select("Job");
-
-        String redirect = "";
         String action = request.getParameter("action");
         try {
             switch (action) {
                 case "insert":
-//                    redirect = "listRegion.jsp";
-//                    request.setAttribute("regions", regions);
                     insert(request, response);
                     break;
-//            case "/insert":
-//                insertBook(request, response);
-//                break;
                 case "delete":
-//                    redirect = "listRegion.jsp";
-//                    request.setAttribute("regions", regions);
                     delete(request, response);
                     break;
                 case "edit":
@@ -98,9 +90,10 @@ public class JobServlet extends HttpServlet {
                 case "update":
                     update(request, response);
                     break;
+                case "byId":
+                    byId(request, response);
+                    break;
                 default:
-//                    redirect = "listRegion.jsp";
-//                    request.setAttribute("regions", regions);
                     list(request, response);
                     break;
             }
@@ -122,11 +115,12 @@ public class JobServlet extends HttpServlet {
             throws ServletException, IOException {
         doGet(request, response);
     }
-    
+
     private void delete(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
-        String id = request.getParameter("jobId");
-        dao.delete(new Job(id));
+        String jobId = request.getParameter("jobId");
+        String jobTitle = request.getParameter("jobTitle");
+        dao.delete(new Job(jobId, jobTitle));
         response.sendRedirect("jobServlet?action=list");
     }
 
@@ -152,7 +146,7 @@ public class JobServlet extends HttpServlet {
 
     private void showForm(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
-        String jobId = request.getParameter("jobId");
+        String jobId = request.getParameter("id");
         Job job = (Job) this.dao.selectByField("Job", "jobId", jobId);
         String id = job.getJobId();
         String title = job.getJobTitle();
@@ -162,7 +156,7 @@ public class JobServlet extends HttpServlet {
         request.setAttribute("jobTitle", title);
         request.setAttribute("minSalary", min);
         request.setAttribute("maxSalary", max);
-        RequestDispatcher rd = request.getRequestDispatcher("updateJob.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("editJob.jsp");
         rd.forward(request, response);
     }
 
@@ -174,24 +168,24 @@ public class JobServlet extends HttpServlet {
         rd.forward(request, response);
     }
 
-//    public int max() {
-//        if (dao.getNewId("Region", "regionId") == null) {
-//            int id = 1;
-//            return id;
-//        } else {
-//
-//            String a = "" + dao.getNewId("Region", "regionId") + "";
-//            int max = Integer.parseInt(a);
-//            int newId = max + 1;
-//
-//            return newId;
-//
-//        }
-//    }
     public List<Job> getAll() {
         return this.dao.select("Job");
     }
 
+    private void byId(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String id = request.getParameter("id");
+        Job job = (Job) this.dao.selectByField("Job", "jobId", id);
+        List<Job> jobAll = this.dao.select("Job");
+        
+        request.setAttribute("jobId", job.getJobId());
+        request.setAttribute("jobTitle", job.getJobTitle());
+        request.setAttribute("minSalary", job.getMinSalary());
+        request.setAttribute("maxSalary", job.getMaxSalary());
+        request.setAttribute("jobAll", jobAll);
+        
+        RequestDispatcher rd = request.getRequestDispatcher("editJob.jsp");
+        rd.forward(request, response);//To change body of generated methods, choose Tools | Templates.
+    }
     /**
      * /**
      * Returns a short description of the servlet.
@@ -202,5 +196,4 @@ public class JobServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }

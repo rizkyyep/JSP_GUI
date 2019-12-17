@@ -27,14 +27,12 @@
                 </div>
                 <div class="row m-t-25">
                     <div class="col-12">
-                        <!--<div class="table-responsive table--no-card m-b-30">-->
                         <table id="listItem" class="table table-borderless table-striped table-earning">
-                            <!--<table id="myTable" class="table table-borderless table-striped table-earning">-->
                         <% List<Job> jobs = (ArrayList<Job>) request.getAttribute("jobs"); %>
                         <thead>
                             <tr>
-                                <th>Job ID</th>
-                                <th>Job Title</th>
+                                <th>ID</th>
+                                <th>Title</th>
                                 <th>Min Salary</th>
                                 <th>Max Salary</th>
                                 <th class="text-right">Action</th>
@@ -48,14 +46,14 @@
                                 <td><%=job.getMinSalary()%></td>
                                 <td><%= job.getMaxSalary()%></td>
                                 <td class="text-right">
-                                    <a href="jobServlet?action=edit&jobId=<%=job.getJobId()%>" 
-                                       data-toggle="tooltip" data-placement="top" 
+                                    <a href="<%=job.getJobId()%>" class="view_data"
+                                       data-toggle="modal" id="<%=job.getJobId()%>" data-target="#editModal"
                                        title="Edit"><i class="fas fa-edit fa-lg" style="color:#26a65b;"></i>                                     
                                     </a>
                                     &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a href="jobServlet?action=delete&id=<%=job.getJobId()%>" 
+                                    <a href="jobServlet?action=delete&jobId=<%=job.getJobId()%>&jobTitle=<%=job.getJobTitle()%>" 
                                        data-toggle="tooltip" data-placement="top" 
-                                       title="Delete"><i class="fas fa-trash fa-lg"style="color:#f03434;"onclick="coba()"></i>
+                                       title="Delete"><i class="fas fa-trash fa-lg"style="color:#f03434;"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -64,12 +62,11 @@
                     </table>
                 </div>
             </div>
-
             <div class="row">
                 <div class="col-12 col-md-12">
                     <div class="copyright">
                         <p>Copyright © 2018 Color-lib. All rights reserved. Template by <a href="https://colorlib.com">Color-lib</a>.</p>
-                        <h1>Halaman-Utama</h1>
+                        <h1>Halaman Utama</h1>
                         <a href="jobServlet?action=list">Job</a>
                     </div>
                 </div>
@@ -94,49 +91,97 @@
                     <div class="row form-group">
                         <div class="input-group col-12 col-md-5 m-b-10">
                             <span class="input-group-addon"><i class="fas fa-id-card"></i></span>
-                            <input id="jobId" type="text" class="form-control" name="jobId" placeholder="Id Job">
+                            <input id="jobId" type="text" class="form-control" name="jobId" placeholder="ID" required>
                         </div>
                         <div class="input-group col-12 col-md-8 m-b-10">
                             <span class="input-group-addon"><i class="fas fa-briefcase"></i></span>
-                            <input id="jobTitle" type="text" class="form-control" name="jobTitle" placeholder="Title Job">
+                            <input id="jobTitle" type="text" class="form-control" name="jobTitle" placeholder="Title" required>
                         </div>
                         <div class="input-group col-12 col-md-8 m-b-10">
                             <span class="input-group-addon"><i class="fas fa-dollar-sign"></i></span>
-                            <input id="minSalary" type="number" class="form-control" name="minSalary" placeholder="Minimal Salary">
+                            <input id="minSalary" type="number" class="form-control" name="minSalary" placeholder="Minimal Salary" required>
                         </div>
                         <div class="input-group col-12 col-md-8 m-b-10">
                             <span class="input-group-addon"><i class="fas fa-dollar-sign"></i></span>
-                            <input id="maxSalary" type="number" class="form-control" name="maxSalary" placeholder="Maximal Salary">
+                            <input id="maxSalary" type="number" class="form-control" name="maxSalary" placeholder="Maximal Salary" required>
                         </div>
-                        <!--                        <div class="col-12 col-md-9 m-b-10">
-                                                    <input type="text" id="jobId" name="jobId" class="form-control">
-                                                </div>
-                                                <div class="col-12 col-md-9 m-b-10">
-                                                    <input type="text" id="jobTitle" name="jobTitle" class="form-control">
-                                                </div>
-                                                <div class="col-12 col-md-9 m-b-10">
-                                                    <input type="number" id="minSalary" name="minSalary" class="form-control">
-                                                </div>
-                                                <div class="col-12 col-md-9 m-b-10">
-                                                    <input type="number" id="maxSalary" name="maxSalary" class="form-control">
-                                                </div>-->
                     </div>
                     <div class="m-b-10">
                         <center>
-                            <input type="submit" name="submit" value="Save" class="btn btn-primary" onclick="success()"/>
+                            <input type="submit" name="submit" value="Save" class="btn btn-primary"/>
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button> 
                         </center>
                     </div>
                 </form>
             </div>
-            <!--            <div class="modal-footer">
-                           
-                            <button type="button" class="btn btn-primary">Confirm</button>
-                        </div>-->
         </div>
     </div>
 </div>
 <!-- end modal add item -->
+
+
+
+<!-- modal edit item -->
+<!--<div class="modal fade" id="edititem" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="fas fa-briefcase" id="smallmodalLabel"> Create New Job Data</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="regionServlet?action=update" method="post" class="form-horizontal">
+                    <div class="row form-group">
+                        <div class="input-group col-12 col-md-5 m-b-10">
+                            <span class="input-group-addon"><i class="fas fa-id-card"></i></span>
+                            <input type="text" value="<%= request.getAttribute("jobId")%>" id="jobId" name="jobId"  class="form-control" readonly>
+                        </div>
+                        <div class="input-group col-12 col-md-8 m-b-10">
+                            <span class="input-group-addon"><i class="fas fa-briefcase"></i></span>
+                            <input type="text" value="<%= request.getAttribute("jobTitle")%>" id="jobTitle" name="jobTitle"  class="form-control" required>
+                        </div>
+                        <div class="input-group col-12 col-md-8 m-b-10">
+                            <span class="input-group-addon"><i class="fas fa-dollar-sign"></i></span>
+                            <input type="number" value="<%= request.getAttribute("minSalary")%>"  id="minSalary"  name="minSalary" class="form-control" required>
+                        </div>
+                        <div class="input-group col-12 col-md-8 m-b-10">
+                            <span class="input-group-addon"><i class="fas fa-dollar-sign"></i></span>
+                            <input type="number" value="<%= request.getAttribute("maxSalary")%>"  id="maxSalary"  name="maxSalary" class="form-control" required>
+                        </div>      
+                    </div>
+                    <div class="m-b-10">
+                        <center>
+                            <input type="submit" name="submit" value="Save" class="btn btn-primary"/>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button> 
+                        </center>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>-->
+<!-- end modal edit item -->
+
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Edit Form Job</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <!-- memulai untuk konten dinamis -->
+            <!-- lihat id="data_siswa", ini yang di pangging pada ajax di bawah -->
+            <div class="modal-body" id="data">
+                
+            </div>
+            <!-- selesai konten dinamis -->
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Declaration of Datatables -->
 <script type="text/javascript">
@@ -145,37 +190,62 @@
                 {
                     "columnDefs": [
                         {"orderable": false, "targets": 2}
-                    ]
+                    ],
+                    "pageLength": 50
                 }
         );
     });
+</script> 
+
+<script type="text/javascript">
     function success() {
         swal({
             title: "Success Saved!",
             text: "You Success Saved New Data!",
-            icon: "success",
+            type: "success",
             timer: 2500
         });
     }
+</script>
+
+<script type="text/javascript">
     function coba() {
         swal({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
             type: 'warning',
             showCancelButton: true,
-            timer: 9000,
+            timer: 3000,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.value) {
-                swal(
-                        'Deleted!',
-                        'Your file has been deleted.',
-                        'success'
-                        )
+                swal({
+                    title: 'Deleted!',
+                    text: 'Your file has been deleted.',
+                    type: 'success',
+                    timer: 3000
+                });
             }
         });
     }
+</script>
+
+<script type="text/javascript">
+   $(document).ready(function () {
+        $("body").on('click', '.view_data', function () {
+            var id = $(this).attr("id");
+            $.ajax({
+                url: "jobServlet?action=edit&id="+id,
+                type: "GET",
+                data: {id: id },
+                success: function (data) {
+                    $("#data").html(data);
+                    $("#editModal").modal('show', {backdrop: 'true'});
+                }
+            });
+        });
+    });
 </script>
 <jsp:include page="templates/footer.jsp"></jsp:include>

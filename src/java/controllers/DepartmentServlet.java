@@ -27,7 +27,6 @@ import tools.HibernateUtil;
  */
 public class DepartmentServlet extends HttpServlet {
 
-    
     private GeneralDao dao;
 
     public DepartmentServlet() {
@@ -37,6 +36,7 @@ public class DepartmentServlet extends HttpServlet {
     public DepartmentServlet(GeneralDao dao) {
         this.dao = dao;
     }
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -97,6 +97,9 @@ public class DepartmentServlet extends HttpServlet {
                 case "addForm":
                     addForm(request, response);
                     break;
+//                case "byId":
+//                    byId(request, response);
+//                    break;
                 default:
                     list(request, response);
                     break;
@@ -121,8 +124,8 @@ public class DepartmentServlet extends HttpServlet {
 //        processRequest(request, response);
         doGet(request, response);
     }
-    
-        // Delete sudah bisa -> belum sweet alert
+
+    // Delete sudah bisa -> belum sweet alert
     private void delete(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
         int id = Integer.parseInt(request.getParameter("id"));
@@ -160,20 +163,40 @@ public class DepartmentServlet extends HttpServlet {
         List<Employee> employees = this.dao.select("Employee");
         List<Location> locations = this.dao.select("Location");
 
-        request.setAttribute("idDepartment", department.getDepartmentId().toString());
+        request.setAttribute("idDepartment", department.getDepartmentId());
         request.setAttribute("nameDepartment", department.getDepartmentName());
-        request.setAttribute("manager", department.getManagerId().getFirstName());
         request.setAttribute("manager", department.getManagerId().getEmployeeId());
         request.setAttribute("nameFirst", department.getManagerId().getFirstName());
-        request.setAttribute("city", department.getLocationId().getLocationId());
-        request.setAttribute("siti", department.getLocationId().getCity());
+        request.setAttribute("cityId", department.getLocationId().getLocationId());
+        request.setAttribute("city", department.getLocationId().getCity());
         request.setAttribute("employees", employees);
         request.setAttribute("locations", locations);
 
-//        RequestDispatcher rd = request.getRequestDispatcher("updateDepartment.jsp"); // kan sudah pakai modal kenapa harus pakai ini? ini kan form update harusnya sih tidak perlu lagi, tinggal show data ke modal saja, itu yang masih error sampai sekarang
-        RequestDispatcher rd = request.getRequestDispatcher("updateDepartment.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("editDepartment.jsp");
         rd.forward(request, response);
     }
+
+//    private void byId(HttpServletRequest request, HttpServletResponse response)
+//            throws SQLException, IOException, ServletException {
+//        String id = request.getParameter("id");
+//        Department department = (Department) this.dao.selectByField("Department", "departmentId", id);
+//        List<Employee> employees = this.dao.select("Employee");
+//        List<Location> locations = this.dao.select("Location");
+//
+//        request.setAttribute("idDepartment", department.getDepartmentId().toString());
+//        request.setAttribute("nameDepartment", department.getDepartmentName());
+//        request.setAttribute("manager", department.getManagerId().getFirstName());
+//        request.setAttribute("manager", department.getManagerId().getEmployeeId());
+//        request.setAttribute("nameFirst", department.getManagerId().getFirstName());
+//        request.setAttribute("city", department.getLocationId().getLocationId());
+//        request.setAttribute("siti", department.getLocationId().getCity());
+//        request.setAttribute("employees", employees);
+//        request.setAttribute("locations", locations);
+//
+////        RequestDispatcher rd = request.getRequestDispatcher("updateDepartment.jsp"); // kan sudah pakai modal kenapa harus pakai ini? ini kan form update harusnya sih tidak perlu lagi, tinggal show data ke modal saja, itu yang masih error sampai sekarang
+//        RequestDispatcher rd = request.getRequestDispatcher("updateDepartment.jsp");
+//        rd.forward(request, response);
+//    }
 
     private void list(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
