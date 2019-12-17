@@ -8,6 +8,7 @@ package controllers;
 import daos.GeneralDao;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -16,6 +17,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import models.Department;
+import models.Employee;
+import models.Location;
 import tools.HibernateUtil;
 
 /**
@@ -80,24 +83,21 @@ public class DepartmentServlet extends HttpServlet {
         try {
             switch (action) {
                 case "insert":
-//                    redirect = "listRegion.jsp";
-//                    request.setAttribute("regions", regions);
-//                    insert(request, response);
-//                    break;
+                    insert(request, response);
+                    break;
                 case "delete":
-//                    redirect = "listRegion.jsp";
-//                    request.setAttribute("regions", regions);
-//                    delete(request, response);
-//                    break;
+                    delete(request, response);
+                    break;
                 case "edit":
-//                    showForm(request, response);
-//                    break;
+                    showForm(request, response);
+                    break;
                 case "update":
-//                    update(request, response);
-//                    break;
+                    update(request, response);
+                    break;
+                case "addForm":
+                    addForm(request, response);
+                    break;
                 default:
-//                    redirect = "listRegion.jsp";
-//                    request.setAttribute("regions", regions);
                     list(request, response);
                     break;
             }
@@ -122,12 +122,101 @@ public class DepartmentServlet extends HttpServlet {
         doGet(request, response);
     }
     
+        // Delete sudah bisa -> belum sweet alert
+    private void delete(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException, ServletException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        dao.delete(new Department(new Short((short) id))); // coba dulu, ini parameter string bisa gak masukin int
+        response.sendRedirect("departmentServlet?action=list");
+    }
+
+    // Insert/Create masih bingung, combobox dan modal
+    private void insert(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException {
+        String id = request.getParameter("idDepartment");
+        String name = request.getParameter("nameDepartment");
+        String manager = request.getParameter("manager");
+        String city = request.getParameter("city");
+        dao.save(new Department(new Short(id), name, new Employee(new Integer(manager)), new Location(new BigDecimal(city))));
+//        dao.save(max(), new Short(id),name, new Employee(new Integer(manager)), );
+        response.sendRedirect("departmentServlet?action=list");
+    }
+
+    private void update(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException {
+        String id = request.getParameter("idDepartment");
+        String name = request.getParameter("nameDepartment");
+        String manager = request.getParameter("manager");
+        String city = request.getParameter("city");
+        dao.save(new Department(new Short(id), name, new Employee(new Integer(manager)), new Location(new BigDecimal(city))));
+        response.sendRedirect("departmentServlet?action=list");
+    }
+
+    //ini skip dulu karna showForm digunakan untuk update masih error
+    private void showForm(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException, ServletException {
+        String id = request.getParameter("id");
+        Department department = (Department) this.dao.selectByField("Department", "departmentId", id);
+        List<Employee> employees = this.dao.select("Employee");
+        List<Location> locations = this.dao.select("Location");
+
+        request.setAttribute("idDepartment", department.getDepartmentId().toString());
+        request.setAttribute("nameDepartment", department.getDepartmentName());
+        request.setAttribute("manager", department.getManagerId().getFirstName());
+        request.setAttribute("manager", department.getManagerId().getEmployeeId());
+        request.setAttribute("nameFirst", department.getManagerId().getFirstName());
+        request.setAttribute("city", department.getLocationId().getLocationId());
+        request.setAttribute("siti", department.getLocationId().getCity());
+        request.setAttribute("employees", employees);
+        request.setAttribute("locations", locations);
+
+//        RequestDispatcher rd = request.getRequestDispatcher("updateDepartment.jsp"); // kan sudah pakai modal kenapa harus pakai ini? ini kan form update harusnya sih tidak perlu lagi, tinggal show data ke modal saja, itu yang masih error sampai sekarang
+        RequestDispatcher rd = request.getRequestDispatcher("updateDepartment.jsp");
+        rd.forward(request, response);
+    }
+
     private void list(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
-        List<Department> department = this.dao.select("Department");
-        request.setAttribute("departments", department);
+        List<Department> departments = this.dao.select("Department");
+        request.setAttribute("departments", departments);
+        List<Employee> employees = this.dao.select("Employee");
+        request.setAttribute("employees", employees);
+        List<Location> locations = this.dao.select("Location");
+        request.setAttribute("locations", locations);
         RequestDispatcher rd = request.getRequestDispatcher("listDepartment.jsp");
         rd.forward(request, response);
+    }
+
+    private void addForm(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException, ServletException {
+        List<Department> departments = this.dao.select("Department");
+        request.setAttribute("departments", departments);
+        List<Employee> employees = this.dao.select("Employee");
+        request.setAttribute("employees", employees);
+        List<Location> locations = this.dao.select("Location");
+        request.setAttribute("locations", locations);
+        RequestDispatcher rd = request.getRequestDispatcher("createDepartment.jsp");
+        rd.forward(request, response);
+    }
+
+    // Untuk auto-increament ID dengan kelipatan 10 -> belum bisa
+    public int max() {
+        if (dao.getNewId("Department", "departmentId") == null) {
+            int id = 1;
+            return id;
+        } else {
+
+            String a = "" + dao.getNewId("Department", "departmentId") + "";
+            int max = Integer.parseInt(a);
+            int newId = max + 10; // max + 10 karena auto-increament setiap id kelipatan 10, tapi belum bisa karena tipe data Short
+
+            return newId;
+
+        }
+    }
+
+    public List<Department> getAll() {
+        return this.dao.select("Department");
     }
 
     /**
