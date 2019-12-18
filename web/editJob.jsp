@@ -20,11 +20,11 @@
         </div>
         <div class="input-group col-12 col-md-10 m-b-10">
             <span class="input-group-addon"><i class="fas fa-dollar-sign"></i></span>
-            <input type="number" id="minSalary" value="<%= request.getAttribute("minSalary")%>" name="minSalary" placeholder="Enter Minimal Salary..." class="form-control" required="">
+            <input type="number" min="0" id="minSalary" value="<%= request.getAttribute("minSalary")%>" name="minSalary" placeholder="Enter Minimal Salary..." class="form-control" required="">
         </div>
         <div class="input-group col-12 col-md-10 m-b-10">
             <span class="input-group-addon"><i class="fas fa-dollar-sign"></i></span>
-            <input type="number" id="maxSalary" value="<%= request.getAttribute("maxSalary")%>" name="maxSalary" placeholder="Enter Maximal Salary..." class="form-control" required="">
+            <input type="number" min="0" id="maxSalary" value="<%= request.getAttribute("maxSalary")%>" name="maxSalary" placeholder="Enter Maximal Salary..." class="form-control" required="">
         </div>
     </div>
     <center>

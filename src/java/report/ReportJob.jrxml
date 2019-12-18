@@ -4,13 +4,18 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString language="hql">
-		<![CDATA[FROM Job]]>
+		<![CDATA[SELECT
+     JOBS."JOB_ID" AS JOBS_JOB_ID,
+     JOBS."JOB_TITLE" AS JOBS_JOB_TITLE,
+     JOBS."MIN_SALARY" AS JOBS_MIN_SALARY,
+     JOBS."MAX_SALARY" AS JOBS_MAX_SALARY
+FROM
+     "HR"."JOBS" JOBS]]>
 	</queryString>
-	<field name="employeeList" class="java.util.List"/>
-	<field name="jobId" class="java.lang.String"/>
-	<field name="jobTitle" class="java.lang.String"/>
-	<field name="maxSalary" class="java.lang.Integer"/>
-	<field name="minSalary" class="java.lang.Integer"/>
+	<field name="JOBS_JOB_ID" class="java.lang.String"/>
+	<field name="JOBS_JOB_TITLE" class="java.lang.String"/>
+	<field name="JOBS_MIN_SALARY" class="java.math.BigDecimal"/>
+	<field name="JOBS_MAX_SALARY" class="java.math.BigDecimal"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -109,22 +114,22 @@
 			<textField>
 				<reportElement x="1" y="3" width="131" height="20" uuid="131d84c9-7cea-4545-8eea-3e9120fa6f6e"/>
 				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{jobId}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{JOBS_JOB_ID}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="130" y="3" width="149" height="20" uuid="15e71677-70cc-4e80-a623-027805be2533"/>
 				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{jobTitle}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{JOBS_JOB_TITLE}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="282" y="3" width="140" height="20" uuid="3a874c7b-91f2-4d6a-840e-56c4c819a4c8"/>
 				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{minSalary}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{JOBS_MIN_SALARY}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="422" y="3" width="133" height="20" uuid="65d22420-a3cd-4613-b010-2cb5d201290d"/>
 				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{maxSalary}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{JOBS_MAX_SALARY}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

@@ -9,6 +9,8 @@ import daos.GeneralDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,6 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import models.Job;
+import org.apache.taglibs.standard.functions.Functions;
 import tools.HibernateUtil;
 
 /**
@@ -106,7 +109,6 @@ public class JobServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -125,11 +127,10 @@ public class JobServlet extends HttpServlet {
 
     private void insert(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
-        String jobId = request.getParameter("jobId");
         String jobTitle = request.getParameter("jobTitle");
         String minSalary = request.getParameter("minSalary");
         String maxSalary = request.getParameter("maxSalary");
-        dao.save(new Job(jobId, jobTitle, Integer.parseInt(minSalary), Integer.parseInt(maxSalary)));
+        dao.save(new Job(Functions.substring(jobTitle,0,2).toUpperCase()+"_"+ remVowel(Functions.substring(jobTitle, 0, 5)).toUpperCase(), jobTitle, Integer.parseInt(minSalary), Integer.parseInt(maxSalary)));
         request.setAttribute("flash", "Save");
         RequestDispatcher rd = request.getRequestDispatcher("jobServlet?action=list");
         rd.forward(request, response);
@@ -159,7 +160,7 @@ public class JobServlet extends HttpServlet {
 
     private void byId(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("id");
-        Job job = (Job) this.dao.selectByField("Job", "jobId", id);     
+        Job job = (Job) this.dao.selectByField("Job", "jobId", id);
         request.setAttribute("jobId", job.getJobId());
         request.setAttribute("jobTitle", job.getJobTitle());
         request.setAttribute("minSalary", job.getMinSalary());
@@ -167,7 +168,20 @@ public class JobServlet extends HttpServlet {
         RequestDispatcher rd = request.getRequestDispatcher("editJob.jsp");
         rd.forward(request, response);
     }
-    
+
+    static String remVowel(String str) {
+        Character vowels[] = {'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'};
+        List<Character> al = Arrays.asList(vowels);
+        StringBuilder sb = new StringBuilder(str);
+        for (int i = 0; i < sb.length(); i++) {
+            if (al.contains(sb.charAt(i))) {
+                sb.replace(i, i + 1, "");
+                i--;
+            }
+        }
+        return sb.toString();
+    }
+
     /**
      * /**
      * Returns a short description of the servlet.

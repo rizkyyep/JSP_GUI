@@ -103,21 +103,17 @@
             <div class="modal-body">
                 <form action="jobServlet?action=insert" method="post" class="form-horizontal">
                     <div class="row form-group">
-                        <div class="input-group col-12 col-md-5 m-b-10">
-                            <span class="input-group-addon"><i class="fas fa-id-card"></i></span>
-                            <input id="jobId" type="text" class="form-control" name="jobId" placeholder="ID" required>
-                        </div>
                         <div class="input-group col-12 col-md-8 m-b-10">
                             <span class="input-group-addon"><i class="fas fa-briefcase"></i></span>
                             <input id="jobTitle" type="text" class="form-control" name="jobTitle" placeholder="Title" required>
                         </div>
                         <div class="input-group col-12 col-md-8 m-b-10">
                             <span class="input-group-addon"><i class="fas fa-dollar-sign"></i></span>
-                            <input id="minSalary" type="number" class="form-control" name="minSalary" placeholder="Minimal Salary" required>
+                            <input id="minSalary" min="0" type="number" class="form-control" name="minSalary" placeholder="Minimal Salary" required>
                         </div>
                         <div class="input-group col-12 col-md-8 m-b-10">
                             <span class="input-group-addon"><i class="fas fa-dollar-sign"></i></span>
-                            <input id="maxSalary" type="number" class="form-control" name="maxSalary" placeholder="Maximal Salary" required>
+                            <input id="maxSalary" min="0" type="number" class="form-control" name="maxSalary" placeholder="Maximal Salary" required>
                         </div>
                     </div>
                     <div class="m-b-10">
